@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class csItemList{
-	private static Dictionary<string, csItem> items = new Dictionary<string, csItem> ();
-	private static csItem emptyItem = new csItem ("", -1, EMPTY);
+	// Non-generic이 아닌 Generic을 이용한 방법으로 Dictionary를 사용
+	private static Dictionary<int, csItem> itemDatabase = new Dictionary<int, csItem> ();
 	private static csItemList _instance = null;
+
 	public const int EMPTY = -1, ETC = 0;
 
 	private csItemList(){
-		items.Add ("나무", new csItem("나무", 0, 0));
+		itemDatabase.Add (-1, new csItem ("", -1, EMPTY, Resources.Load<Sprite>("Empty")));
+		itemDatabase.Add (0, new csItem("나무", 0, ETC, Resources.Load<Sprite>("Wood")));
 	}
 
 	public static csItemList Instance{
@@ -20,7 +22,8 @@ public class csItemList{
 		}
 	}
 
-	public csItem GetItem(string key){
-		return (items.ContainsKey (key)) ? items [key] : emptyItem;
+	public csItem GetItem(int id){
+		return (itemDatabase.ContainsKey (id)) ? itemDatabase [id] : itemDatabase[-1];
 	}
+
 }

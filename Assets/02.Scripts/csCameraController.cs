@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 카메라를 제어하기 위한 클래스이다.
 public class csCameraController : MonoBehaviour {
 	private bool isThird;
 	private Transform thirdPos;
@@ -16,6 +17,7 @@ public class csCameraController : MonoBehaviour {
 		charController = FindObjectOfType<csCharacterController> ();
 		charTransform = FindObjectOfType<csCharacterController> ().transform;
 		mouseSensitive = charController.GetSensetive;
+		transform.localPosition = thirdPos.localPosition;
 	}
 	
 	// Update is called once per frame

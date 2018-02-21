@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 캐릭터를 제어하기 위한 클래스이다.
 public class csCharacterController : MonoBehaviour {
 	private CharacterController cc;
 	private csCharacterStatus charStats;
@@ -35,7 +36,7 @@ public class csCharacterController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (charStats.IsLumber)
+		if (charStats.isStop)
 			return;
 		CharMove ();
 		CharRot ();
@@ -49,9 +50,10 @@ public class csCharacterController : MonoBehaviour {
 		RaycastHit hit;
 		Debug.DrawRay (transform.position + transform.up / 2f, transform.forward, Color.red);
 		if(Physics.Raycast(transform.position + transform.up / 2f, transform.forward, out hit, 1f)){
-			if (hit.collider.tag == "Tree" && !anim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering"))
+			if (hit.collider.tag == "Tree" && !anim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
 				hit.collider.GetComponent<csTreeController> ().Lumber ();
 				return true;
+			}
 		}
 		return false;
 	}
@@ -59,12 +61,12 @@ public class csCharacterController : MonoBehaviour {
 	private IEnumerator CharLumber(){
 		// Lumbering 애니메이션 재생
 		anim.SetBool ("Lumber", true);
-		charStats.IsLumber = true;
+		charStats.isStop = true;
 
 		yield return new WaitForSeconds (0.5f);
 
 		anim.SetBool ("Lumber", false);
-		charStats.IsLumber = false;
+		charStats.isStop = false;
 	}
 
 	// 사용자의 방향키 입력으로 캐릭터의 움직임을 조작한다.
@@ -108,19 +110,9 @@ public class csCharacterController : MonoBehaviour {
 		// 현재 입력된 방향키에 따라 캐릭터의 방향을 전환한다.
 		if (ver == 0 && hor == 0) {
 			anim.SetFloat ("Walk", 0);
-//			playerModel.localRotation = Quaternion.AngleAxis (0f, playerModel.up);
 			return;
 		}
 		anim.SetFloat ("Walk", 1);
-
-//		if (ver > 0)
-//			playerModel.localRotation = Quaternion.AngleAxis (0f, playerModel.up);
-//		else if(ver < 0)
-//			playerModel.localRotation = Quaternion.AngleAxis (180f, playerModel.up);
-//		else if(hor > 0)
-//			playerModel.localRotation = Quaternion.AngleAxis (90f, playerModel.up);
-//		else if(hor < 0)
-//			playerModel.localRotation = Quaternion.AngleAxis (-90f, playerModel.up);
 	}
 
 	// 사용자의 마우스 움직임으로 캐릭터의 방향을 회전한다.

@@ -6,11 +6,13 @@ public struct csItem {
 	private string name;
 	private int id;
 	private int type;
+	private Sprite picture;
 
-	public csItem(string n, int i, int t){
+	public csItem(string n, int i, int t, Sprite p){
 		this.name = n;
 		this.id = i;
 		this.type = t;
+		this.picture = p;
 	}
 
 	public string Name{
@@ -28,6 +30,12 @@ public struct csItem {
 	public int Type{
 		get{
 			return type;
+		}
+	}
+
+	public Sprite Picture{
+		get{
+			return picture;
 		}
 	}
 }
