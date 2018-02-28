@@ -12,10 +12,10 @@ public class csInventorySlot : MonoBehaviour {
 	private int itemCount;
 	private bool hasItem;
 
-	void Start(){
+	public void Init(){
 		dragPos = csAlreadyGame.DragItemView;
 		dragImg = dragPos.GetComponent<Image> ();
-		emptyItem = csItemList.Instance.GetItem(-1);
+		emptyItem = csItemList.Instance.EmptyItem;
 		item = emptyItem;
 		GetComponent<Image> ().sprite = item.Picture;
 		slot = GetComponent<csInventorySlot> ();

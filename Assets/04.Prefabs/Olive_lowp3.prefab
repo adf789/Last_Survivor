@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0aa53f67ab73f54cbb1b000ce2ae547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 5
 --- !u!114 &114912206280381754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,5 +158,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449276566599f6148bda07951691ae74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lumberPos: {x: 0, y: 0, z: 0}
-  originPos: {x: 0, y: 0, z: 0}

@@ -8,6 +8,7 @@ public class csCharacterController : MonoBehaviour {
 	private csCharacterStatus charStats;
 	[SerializeField]private Transform cameraLocation;
 	[SerializeField]private Transform playerModel;
+	[SerializeField]private GameObject[] weapons;
 	private Animator thirdAnim, firstAnim, curAnim;
 	private Vector3 charDir;
 	private float gravity, mouseSensitive, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed;
@@ -43,13 +44,23 @@ public class csCharacterController : MonoBehaviour {
 	}
 
 	private bool isPlayLumbering(){
+		if (charStats.CurrentEquip() == "Empty")
+			return false;
+
 		// Lumbering 하는 애니메이터 조건 Active, 현재 Lumbering이 실행중이면 실행하지 않음.
 		RaycastHit hit;
 		Debug.DrawRay (transform.position + transform.up / 2f, transform.forward, Color.red);
 		if(Physics.Raycast(transform.position + transform.up / 2f, transform.forward, out hit, 1f)){
 			if (hit.collider.tag == "Tree" && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
-				hit.collider.GetComponent<csTreeController> ().Lumber ();
-				return true;
+				if (charStats.CurrentEquip() == "Axe") {
+					hit.collider.GetComponent<csTreeController> ().Lumber ();
+					return true;
+				}
+			}else if (hit.collider.tag == "Rock" && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
+				if (charStats.CurrentEquip() == "Pickaxe") {
+					hit.collider.GetComponent<csRockController> ().Dig ();
+					return true;
+				}
 			}
 		}
 		return false;
@@ -136,5 +147,12 @@ public class csCharacterController : MonoBehaviour {
 		} else {
 			curAnim = firstAnim;
 		}
+	}
+
+	public void chgWeapon(int prev, int now){
+		if(prev != -1)
+			weapons [prev].SetActive (false);
+		if(now != -1)
+			weapons [now].SetActive (true);
 	}
 }

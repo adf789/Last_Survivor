@@ -25,7 +25,7 @@ public class csTreeController : MonoBehaviour {
 		anim.SetBool ("Lumber", true);
 		stats.death (2.5f);
 		csInventory inv = csInventory.Instance;
-		csItem item = csItemList.Instance.GetItem (Random.Range(0, 4));
+		csItem item = csItemList.Instance.GetItem (0);
 		inv.SetToInventory (item, 3);
 	}
 
@@ -38,7 +38,7 @@ public class csTreeController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 		if (col.collider.tag == "Axe") {
-			stats.DecreaseHp (20f);
+			stats.DecreaseHp (1f);
 			if (stats.GetHp <= 0f) {
 				CutTree ();
 			}

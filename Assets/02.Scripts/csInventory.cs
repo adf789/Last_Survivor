@@ -65,6 +65,12 @@ public class csInventory{
 		return 0;
 	}
 
+	public csItem GetToInventory(int index){
+		if (index < 0 || index >= SIZE)
+			return csItemList.Instance.EmptyItem;
+		return curInventory [index];
+	}
+
 	public bool HasInventory(csItem item){
 		return IsContain (item);
 	}
@@ -83,7 +89,7 @@ public class csInventory{
 			// 현재 가지고 있는 개수와 파라미터인 count 값과의 합이 음수이면 아무 행동없이 false를 반환한다.
 			if (curCount + count < 0)
 				return false;
-			curInventory [index] = csItemList.Instance.GetItem (-1);
+			curInventory [index] = csItemList.Instance.EmptyItem;
 			countList [index] = 0;
 			if (curCount + count == 0) {
 				// 인벤토리 UI에서 해당 아이템을 삭제한다.
@@ -147,6 +153,7 @@ public class csInventory{
 		return true;
 	}
 
+	// 현재 index가 퀵바인지 인벤토리인지 확인한 후 해당 오브젝트를 리턴한다.
 	private GameObject QuickOrInv(int index){
 		GameObject objSlot;
 		if (index < 9) {
