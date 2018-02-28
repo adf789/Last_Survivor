@@ -10,9 +10,11 @@ public class csCameraController : MonoBehaviour {
 	private Transform charTransform;
 	private float mouseSensitive;
 
+	public static bool isStop;
 	// Use this for initialization
 	void Start () {
 		isThird = true;
+		isStop = false;
 		thirdPos = GameObject.Find ("ThirdCameraPos").transform;
 		charController = FindObjectOfType<csCharacterController> ();
 		charTransform = FindObjectOfType<csCharacterController> ().transform;
@@ -22,10 +24,13 @@ public class csCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (isStop)
+			return;
 		CameraRotation ();
 		// 키보드 상 C 버튼을 눌렀을 때 카메라의 위치를 3인칭 혹은 1인칭으로 변경한다.
 		if (Input.GetButtonDown("C")) {
 			ConvertView ();
+			charController.setFocus (isThird);
 		}
 	}
 
@@ -45,8 +50,8 @@ public class csCameraController : MonoBehaviour {
 
 			charTransform.GetChild (0).gameObject.SetActive (true);
 			transform.GetChild (0).gameObject.SetActive (false);
-			transform.position = thirdPos.position;
-			transform.rotation = thirdPos.rotation;
+			transform.localPosition = thirdPos.localPosition;
+			transform.localRotation = thirdPos.localRotation;
 			isThird = true;
 		}
 	}

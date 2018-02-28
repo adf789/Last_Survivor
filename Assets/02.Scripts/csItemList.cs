@@ -7,11 +7,16 @@ public class csItemList{
 	private static Dictionary<int, csItem> itemDatabase = new Dictionary<int, csItem> ();
 	private static csItemList _instance = null;
 
-	public const int EMPTY = -1, ETC = 0;
+	public const int EMPTY = -1, ETC = 0, FOOD = 1;
 
 	private csItemList(){
-		itemDatabase.Add (-1, new csItem ("", -1, EMPTY, Resources.Load<Sprite>("Empty")));
-		itemDatabase.Add (0, new csItem("나무", 0, ETC, Resources.Load<Sprite>("Wood")));
+		// 모든 아이템들은 itemDatabase 안에 추가된다.
+		int id = -1;
+		itemDatabase.Add (id, new csItem ("", id++, EMPTY, csAlreadyGame.GetImg("Empty")));	// id : -1
+		itemDatabase.Add (id, new csItem("나무", id++, ETC, csAlreadyGame.GetImg("Wood")));	// id : 0
+		itemDatabase.Add (id, new csItem("철", id++, ETC, csAlreadyGame.GetImg("Iron")));		// id : 1
+		itemDatabase.Add (id, new csItem("수정", id++, ETC, csAlreadyGame.GetImg("Crystal")));	// id : 2
+		itemDatabase.Add (id, new csItem("고기", id++, FOOD, csAlreadyGame.GetImg("Meat")));	// id : 3
 	}
 
 	public static csItemList Instance{

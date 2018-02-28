@@ -8,11 +8,11 @@ public struct csItem {
 	private int type;
 	private Sprite picture;
 
-	public csItem(string n, int i, int t, Sprite p){
-		this.name = n;
-		this.id = i;
-		this.type = t;
-		this.picture = p;
+	public csItem(string name, int id, int type, Sprite picture){
+		this.name = name;
+		this.id = id;
+		this.type = type;
+		this.picture = picture;
 	}
 
 	public string Name{

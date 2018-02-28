@@ -8,25 +8,22 @@ public class csCharacterController : MonoBehaviour {
 	private csCharacterStatus charStats;
 	[SerializeField]private Transform cameraLocation;
 	[SerializeField]private Transform playerModel;
-	private Animator anim;
+	private Animator thirdAnim, firstAnim, curAnim;
 	private Vector3 charDir;
-	private float gravity;
-	private float mouseSensitive;
-	private float moveSpeed;
-	private float jumpSpeed;
-	private float jumpLocation;
-	private float curMoveSpeed;
+	private float gravity, mouseSensitive, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed;
 
 	void Awake() {
 		cc = gameObject.GetComponent<CharacterController> ();
 		charStats = csCharacterStatus.Instance;
-		anim = gameObject.GetComponent<Animator> ();
+		thirdAnim = gameObject.GetComponent<Animator> ();
+		firstAnim = transform.Find ("Main Camera").Find ("FirstMotion").GetComponent<Animator>();
 		Init ();
 	}
 
 	void Init(){
 		// 초기 조건 설정
 		charDir = Vector3.zero;
+		curAnim = thirdAnim;
 		gravity = 3f;
 		mouseSensitive = 80f;
 		moveSpeed = 1f;
@@ -50,7 +47,7 @@ public class csCharacterController : MonoBehaviour {
 		RaycastHit hit;
 		Debug.DrawRay (transform.position + transform.up / 2f, transform.forward, Color.red);
 		if(Physics.Raycast(transform.position + transform.up / 2f, transform.forward, out hit, 1f)){
-			if (hit.collider.tag == "Tree" && !anim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
+			if (hit.collider.tag == "Tree" && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
 				hit.collider.GetComponent<csTreeController> ().Lumber ();
 				return true;
 			}
@@ -60,12 +57,12 @@ public class csCharacterController : MonoBehaviour {
 
 	private IEnumerator CharLumber(){
 		// Lumbering 애니메이션 재생
-		anim.SetBool ("Lumber", true);
+		curAnim.SetBool ("Lumber", true);
 		charStats.isStop = true;
 
 		yield return new WaitForSeconds (0.5f);
 
-		anim.SetBool ("Lumber", false);
+		curAnim.SetBool ("Lumber", false);
 		charStats.isStop = false;
 	}
 
@@ -79,8 +76,10 @@ public class csCharacterController : MonoBehaviour {
 			// 방향키 입력으로 캐릭터를 움직이며, 설정된 Jump키의 조작으로 캐릭터가 점프유무를 판단한다.
 			jumpLocation = 0f;
 			charDir = (transform.forward * ver + transform.right * hor) * moveSpeed;
+			curAnim.SetBool ("Jump", false);
 			if (Input.GetButtonDown ("Jump")) {
 				jumpLocation = -jumpSpeed;
+				curAnim.SetBool ("Jump", true);
 			}
 
 			// 'R'키가 눌러진 상태에서 이동하는 경우 moveSpeed를 변경하여 캐릭터의 속도를 빠르게 한다.
@@ -89,13 +88,13 @@ public class csCharacterController : MonoBehaviour {
 					moveSpeed += 0.1f;
 				if (curMoveSpeed < 20f)
 					curMoveSpeed += 1f;
-				anim.SetFloat ("Run", curMoveSpeed);
+				curAnim.SetFloat ("Run", curMoveSpeed);
 			} else {
 				if (moveSpeed > 1f)
 					moveSpeed -= 0.1f;
 				if (curMoveSpeed > 0f)
 					curMoveSpeed -= 1f;
-				anim.SetFloat ("Run", curMoveSpeed);
+				curAnim.SetFloat ("Run", curMoveSpeed);
 			}
 		}
 
@@ -109,10 +108,10 @@ public class csCharacterController : MonoBehaviour {
 	private void WalkDirAnim(float hor, float ver){
 		// 현재 입력된 방향키에 따라 캐릭터의 방향을 전환한다.
 		if (ver == 0 && hor == 0) {
-			anim.SetFloat ("Walk", 0);
+			curAnim.SetFloat ("Walk", 0);
 			return;
 		}
-		anim.SetFloat ("Walk", 1);
+		curAnim.SetFloat ("Walk", 1);
 	}
 
 	// 사용자의 마우스 움직임으로 캐릭터의 방향을 회전한다.
@@ -127,6 +126,15 @@ public class csCharacterController : MonoBehaviour {
 	public float GetSensetive{
 		get{
 			return mouseSensitive;
+		}
+	}
+
+	// 현재 진행할 애니메이션이 3인칭인지 1인칭인지 정함
+	public void setFocus(bool isThird){
+		if (isThird) {
+			curAnim = thirdAnim;
+		} else {
+			curAnim = firstAnim;
 		}
 	}
 }

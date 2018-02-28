@@ -9,8 +9,8 @@ public class csUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject obj = GameObject.Find ("Canvas");
-		inventory = obj.transform.Find ("Scroll View").gameObject;
+		inventory = GameObject.Find ("Canvas").transform.Find ("Scroll View").gameObject;
+		inventory.SetActive (false);
 		isShowInventory = false;
 	}
 	
@@ -20,6 +20,7 @@ public class csUIController : MonoBehaviour {
 			isShowInventory = !isShowInventory;
 			inventory.SetActive (isShowInventory);
 			csCharacterStatus.Instance.isStop = isShowInventory;
+			csCameraController.isStop = isShowInventory;
 		}
 		if (isShowInventory) {
 			if (Input.GetButtonDown ("Fire1")) {
@@ -32,6 +33,5 @@ public class csUIController : MonoBehaviour {
 			}
 		}
 	}
-
 
 }

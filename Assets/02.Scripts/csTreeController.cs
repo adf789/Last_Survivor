@@ -7,22 +7,42 @@ public class csTreeController : MonoBehaviour {
 	private csObjectStatus stats;
 	private Animator anim;
 	private BoxCollider col;
+	private Rigidbody rigid;
 
 	void Start () {
 		stats = gameObject.GetComponent<csObjectStatus> ();
 		anim = gameObject.GetComponent<Animator> ();
 		col = gameObject.GetComponent<BoxCollider> ();
+		rigid = gameObject.GetComponent<Rigidbody> ();
 	}
 	
 	public void Lumber(){
-		stats.DecreaseHp (20f);
-		if (stats.GetHp <= 0f) {
-			col.enabled = false;
-			anim.SetBool ("Lumber", true);
-			stats.death (2.5f);
-			csInventory inv = csInventory.Instance;
-			csItem item = csItemList.Instance.GetItem (0);
-			inv.SetToInventory (item, 3);
+		StartCoroutine ("actionLumber");
+	}
+
+	private void CutTree(){
+		col.enabled = false;
+		anim.SetBool ("Lumber", true);
+		stats.death (2.5f);
+		csInventory inv = csInventory.Instance;
+		csItem item = csItemList.Instance.GetItem (Random.Range(0, 4));
+		inv.SetToInventory (item, 3);
+	}
+
+	// 도끼가 부딪힐 타이밍에 Rigidbody를 활성화한다.
+	IEnumerator actionLumber(){
+		yield return new WaitForSeconds (0.5f);
+		rigid.isKinematic = false;
+
+	}
+
+	void OnCollisionEnter(Collision col){
+		if (col.collider.tag == "Axe") {
+			stats.DecreaseHp (20f);
+			if (stats.GetHp <= 0f) {
+				CutTree ();
+			}
+			rigid.isKinematic = true;
 		}
 	}
 }
