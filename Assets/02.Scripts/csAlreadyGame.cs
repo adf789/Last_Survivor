@@ -5,6 +5,7 @@ using UnityEngine;
 public class csAlreadyGame : MonoBehaviour {
 	private static Dictionary<string, Sprite> itemImgs = new Dictionary<string, Sprite> ();
 	private static bool isLoaded = false;
+	private static Transform dragItemView;
 
 	void Awake () {
 		csItemList list = csItemList.Instance;
@@ -29,5 +30,13 @@ public class csAlreadyGame : MonoBehaviour {
 		if (!itemImgs.ContainsKey (key))
 			return itemImgs ["Empty"];
 		return itemImgs [key];
+	}
+
+	public static Transform DragItemView{
+		get{
+			if(dragItemView == null)
+				dragItemView = GameObject.Find ("Canvas").transform.Find ("DragImg");
+			return dragItemView;
+		}
 	}
 }

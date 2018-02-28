@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // 현재 인벤토리를 관리하는 클래스이다.
+// 또한 퀵바의 아이템 목록도 같은 리스트에 저장한다.
 public class csInventory{
-	private const int SIZE = 12;
+	private const int SIZE = 21;
+	private const int QUICK_SIZE = 9;
 	private static csInventory _instance = null;
 	private List<csItem> curInventory = new List<csItem>(SIZE);
 	private List<int> countList = new List<int> (SIZE);
 	private static Transform objInventory = null;
+	private static Transform objQuickBar = null;
 	private int curIndex = 0;
 
 
@@ -26,8 +29,13 @@ public class csInventory{
 
 	private csInventory(){
 		// 처음 인벤토리를 찾을시 objInventory의 GameObject를 찾는다.
-		objInventory = GameObject.Find ("Canvas").transform.GetChild (0).GetChild(0).Find ("Inventory");
+		GameObject canvas = GameObject.Find ("Canvas");
+		objInventory = canvas.transform.Find("Scroll View").GetChild(0).Find ("Inventory");
+		// Inventory 오브젝트의 위치를 초기화한다.
 		objInventory.GetComponent<RectTransform> ().localPosition = new Vector3 (0f, -71.545f);
+
+		// 항시 열려있는 퀵바 GameObject를 찾는다.
+		objQuickBar = canvas.transform.Find ("QuickBar");
 
 		// 처음 인벤토리를 초기화한다.
 		for (int i = 0; i < SIZE; i++) {
@@ -109,8 +117,8 @@ public class csInventory{
 
 	// 현재 아이템이 들어갈 index를 찾음
 	private void SetIndex(){
-		for (int i = 0; i < curInventory.Capacity; i++) {
-			if (curInventory [i].Equals(csItemList.Instance.GetItem (-1))) {
+		for (int i = 0; i < countList.Capacity; i++) {
+			if (countList[i] == 0) {
 				curIndex = i;
 				break;
 			}
@@ -139,72 +147,96 @@ public class csInventory{
 		return true;
 	}
 
+	private GameObject QuickOrInv(int index){
+		GameObject objSlot;
+		if (index < 9) {
+			objSlot = objQuickBar.GetChild (index).gameObject;
+		} else {
+			objSlot = objInventory.GetChild (index - QUICK_SIZE).gameObject;
+
+		}
+
+		return objSlot;
+	}
+
 	// 현재 얻은 아이템을 인벤토리 UI에 추가하거나 변경한다.
 	private void AddToInventoryUI(csItem item, int count){
-		GameObject objSlot = objInventory.GetChild (curIndex).gameObject;
+		GameObject objSlot = QuickOrInv (curIndex);
 		objSlot.GetComponent<csInventorySlot> ().SetItem (item, count);
 	}
 
 	// 현재 index의 아이템의 개수를 count로 변경한다.
 	private void AddToInventoryUI(int index, int count){
-		GameObject objSlot = objInventory.GetChild (index).gameObject;
+		GameObject objSlot = QuickOrInv (index);
 		objSlot.GetComponent<csInventorySlot> ().SetItem (count);
 	}
 
 	// 인벤토리 UI에서 현재 아이템을 삭제한다.
 	private void DeleteToInventoryUI(csItem item, int index){
-		GameObject objSlot = objInventory.GetChild (index).gameObject;
+		GameObject objSlot = QuickOrInv (index);
 		objSlot.GetComponent<csInventorySlot> ().SetEmpty ();
 	}
 
-	public void ItemSwap(csInventorySlot toSlot, Vector3 fromPos){
-		csInventorySlot fromSlot;
-		if (!NearSlot (fromPos, out fromSlot)) {
-			toSlot.Restore ();
+	public void ItemSwap(csInventorySlot fromSlot, Vector3 toPos){
+		csInventorySlot toSlot;
+		int toIndex;
+		if (!NearSlot (toPos, out toSlot, out toIndex)) {
+			fromSlot.Restore ();
 			return;
 		}
 
 		// 바꿀 아이템의 index 값을 구한다.
-		int index1 = curInventory.IndexOf (toSlot.Item);
-		int index2 = curInventory.IndexOf (fromSlot.Item);
-
-		// 만약 바꿀 목표의 아이템이 빈 아이템일 경우 curIndex에 임시 저장된 인덱스 값으로 변경한 후
-		// 다음 들어갈 위치의 curIndex를 재탐색한다.
-		if (index2 == -1) {
-			index2 = curIndex;
-			SetIndex ();
-		}
+		int fromIndex = curInventory.IndexOf (fromSlot.Item);
 
 		// 아이템의 위치와 개수를 swap 한다.
-		csItem toItem = toSlot.Item;
-		int toCount = toSlot.Count;
-		toSlot.SetItem(fromSlot.Item, fromSlot.Count);
-		fromSlot.SetItem (toItem, toCount);
+		csItem tempItem = fromSlot.Item;
+		int tempCount = fromSlot.Count;
+		fromSlot.SetItem(toSlot.Item, toSlot.Count);
+		toSlot.SetItem (tempItem, tempCount);
 
 		// list의 아이템 정보를 swap 한다.
-		ReplaceToList (index1, index2);
+		ReplaceToList (fromIndex, toIndex);
+
+		// curIndex를 재탐색한다.
+		SetIndex ();
 	}
 
 	// 해당 좌표에 있는 오브젝트의 csInventorySlot 인스턴스를 반환한다.
-	private bool NearSlot(Vector3 pos, out csInventorySlot slot){
-		// pos의 좌표가 인벤토리 GUI내의 Slot이 있는 위치인지 파악하며, 찾지 못했을 시 false를 반환한다.
-		for (int i = 0; i < objInventory.childCount; i++) {
-			float x = objInventory.GetChild (i).position.x;
+	private bool NearSlot(Vector3 pos, out csInventorySlot slot, out int index){
+		Transform tempObj;
+		bool isQuick;
+		// 해당 pos의 y좌표가 90보다 작으면 퀵바 슬롯 기준으로 탐색하고, 크면 인벤토리 슬롯 기준으로 탐색한다.
+		if (pos.y < 90) {
+			tempObj = objQuickBar;
+			isQuick = true;
+		} else {
+			tempObj = objInventory;
+			isQuick = false;
+		}
+
+		// pos의 좌표가 Slot이 있는 위치인지 파악하며, 찾지 못했을 시 false를 반환한다.
+		for (int i = 0; i < tempObj.childCount; i++) {
+			float x = tempObj.GetChild (i).position.x;
 			// pos의 x좌표가 현재 탐색한 Slot의 x좌표 안의 값인지 확인한다.
 			if (x < pos.x && x + 40 > pos.x) {
-				float y = objInventory.GetChild (i).position.y;
+				float y = tempObj.GetChild (i).position.y;
 				// pos의 y좌표가 현재 탐색한 Slot의 y좌표 안의 값인지 확인한다.
 				if (y > pos.y && y - 40 < pos.y) {
 					// x, y좌표가 모두 범위 안에 있는 경우 out 파라미터인 slot에 현재 탐색된 slot을 저장한다.
-					slot = objInventory.GetChild (i).GetComponent<csInventorySlot> ();
+					slot = tempObj.GetChild (i).GetComponent<csInventorySlot> ();
 
-					// slot이 빈 아이템일 경우 현재 위치를 curIndex에 저장한다.
-					curIndex = i;
+					// 현재 인덱스를 저장한다.
+					// 퀵바인 경우와 인벤토리인 경우의 인덱스를 다르게 한다.
+					if (isQuick)
+						index = i;
+					else
+						index = i + QUICK_SIZE;
 					return true;
 				}
 			}
 		}
 		slot = objInventory.GetChild (0).GetComponent<csInventorySlot> ();
+		index = 0;
 		return false;
 	}
 }

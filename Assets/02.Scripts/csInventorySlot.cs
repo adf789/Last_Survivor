@@ -13,10 +13,11 @@ public class csInventorySlot : MonoBehaviour {
 	private bool hasItem;
 
 	void Start(){
-		dragPos = GameObject.Find ("Canvas").transform.Find ("DragImg");
+		dragPos = csAlreadyGame.DragItemView;
 		dragImg = dragPos.GetComponent<Image> ();
 		emptyItem = csItemList.Instance.GetItem(-1);
-		GetComponent<Image> ().sprite = emptyItem.Picture;
+		item = emptyItem;
+		GetComponent<Image> ().sprite = item.Picture;
 		slot = GetComponent<csInventorySlot> ();
 	}
 		
@@ -28,7 +29,7 @@ public class csInventorySlot : MonoBehaviour {
 	}
 
 	public void ItemDown(){
-		if (GetComponent<Image> ().sprite == emptyItem.Picture) {
+		if (item.Equals(emptyItem)) {
 			hasItem = false;
 			return;
 		} else {
@@ -40,6 +41,7 @@ public class csInventorySlot : MonoBehaviour {
 		dragImg.sprite = GetComponent<Image> ().sprite;
 		dragPos.GetChild (0).GetComponent<Text> ().text = transform.GetChild (0).GetComponent<Text> ().text;
 
+		// 현재 아이템 슬롯은 아무것도 없는 것처럼 보이게 한다.
 		GetComponent<Image> ().sprite = emptyItem.Picture;
 		transform.GetChild (0).GetComponent<Text> ().text = "";
 	}
@@ -47,6 +49,7 @@ public class csInventorySlot : MonoBehaviour {
 	public void EndItemDrag(){
 		if (!hasItem)
 			return;
+		// 현재 슬롯과 마우스 드래그한 최종 위치의 아이템 슬롯을 swap 한다.
 		csInventory.Instance.ItemSwap (slot, dragPos.position);
 
 		dragPos.gameObject.SetActive (false);
