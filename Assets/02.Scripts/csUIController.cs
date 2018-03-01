@@ -26,8 +26,8 @@ public class csUIController : MonoBehaviour {
 		}
 		float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");
 		SetScrollIndex (mouseScroll);
+		NumKeyDown ();
 	}
-
 
 	private void Init(){
 		Transform inventoryTransform = inventory.transform.GetChild (0).GetChild (0);
@@ -39,6 +39,34 @@ public class csUIController : MonoBehaviour {
 		}
 		inventory.SetActive (false);
 		crateInv.SetActive (false);
+	}
+
+	private void NumKeyDown(){
+		int temp = curScrollIndex;
+		if (Input.GetKeyDown (KeyCode.Alpha1))
+			temp = 0;
+		else if (Input.GetKeyDown (KeyCode.Alpha2))
+			temp = 1;
+		else if (Input.GetKeyDown (KeyCode.Alpha3))
+			temp = 2;
+		else if (Input.GetKeyDown (KeyCode.Alpha4))
+			temp = 3;
+		else if (Input.GetKeyDown (KeyCode.Alpha5))
+			temp = 4;
+		else if (Input.GetKeyDown (KeyCode.Alpha6))
+			temp = 5;
+		else if (Input.GetKeyDown (KeyCode.Alpha7))
+			temp = 6;
+		else if (Input.GetKeyDown (KeyCode.Alpha8))
+			temp = 7;
+		else if (Input.GetKeyDown (KeyCode.Alpha9))
+			temp = 8;
+
+		if (temp != curScrollIndex) {
+			curScrollIndex = temp;
+			MoveScrollGuide ();
+			UseTools ();
+		}
 	}
 
 	// 인벤토리 GUI를 열고 닫는다.

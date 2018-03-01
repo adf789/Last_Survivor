@@ -44,20 +44,20 @@ public class csCharacterController : MonoBehaviour {
 	}
 
 	private bool isPlayLumbering(){
-		if (charStats.CurrentEquip() == "Empty")
+		if (charStats.CurrentEquip().Equals("Empty"))
 			return false;
 
 		// Lumbering 하는 애니메이터 조건 Active, 현재 Lumbering이 실행중이면 실행하지 않음.
 		RaycastHit hit;
 		Debug.DrawRay (transform.position + transform.up / 2f, transform.forward, Color.red);
 		if(Physics.Raycast(transform.position + transform.up / 2f, transform.forward, out hit, 1f)){
-			if (hit.collider.tag == "Tree" && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
-				if (charStats.CurrentEquip() == "Axe") {
+			if (hit.collider.tag.Equals("Tree") && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
+				if (charStats.CurrentEquip().Equals("Axe")) {
 					hit.collider.GetComponent<csTreeController> ().Lumber ();
 					return true;
 				}
-			}else if (hit.collider.tag == "Rock" && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
-				if (charStats.CurrentEquip() == "Pickaxe") {
+			}else if (hit.collider.tag.Equals("Rock") && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
+				if (charStats.CurrentEquip().Equals("Pickaxe")) {
 					hit.collider.GetComponent<csRockController> ().Dig ();
 					return true;
 				}

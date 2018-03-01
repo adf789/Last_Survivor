@@ -8,12 +8,14 @@ public class csTreeController : MonoBehaviour {
 	private Animator anim;
 	private BoxCollider col;
 	private Rigidbody rigid;
+	private AudioSource audioSource;
 
 	void Start () {
 		stats = gameObject.GetComponent<csObjectStatus> ();
 		anim = gameObject.GetComponent<Animator> ();
 		col = gameObject.GetComponent<BoxCollider> ();
 		rigid = gameObject.GetComponent<Rigidbody> ();
+		audioSource = gameObject.GetComponent<AudioSource> ();
 	}
 	
 	public void Lumber(){
@@ -39,6 +41,7 @@ public class csTreeController : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (col.collider.tag == "Axe") {
 			stats.DecreaseHp (1f);
+			audioSource.Play ();
 			if (stats.GetHp <= 0f) {
 				CutTree ();
 			}

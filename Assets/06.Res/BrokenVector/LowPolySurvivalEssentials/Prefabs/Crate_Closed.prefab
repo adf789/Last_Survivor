@@ -10,7 +10,9 @@ GameObject:
   - component: {fileID: 470408}
   - component: {fileID: 3351790}
   - component: {fileID: 2395910}
-  - component: {fileID: 65870434974536580}
+  - component: {fileID: 135180244988760256}
+  - component: {fileID: 65177662913658932}
+  - component: {fileID: 114868892241545482}
   m_Layer: 0
   m_Name: Crate_Closed
   m_TagString: Untagged
@@ -83,7 +85,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 104340}
   m_IsPrefabParent: 1
---- !u!65 &65870434974536580
+--- !u!65 &65177662913658932
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -94,4 +96,45 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.2451582, y: 0.53562325, z: 0.7699584}
+  m_Center: {x: 0, y: 0.26782516, z: -0.0069459975}
+--- !u!114 &114868892241545482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729851db72790804eab3afd6b93adffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item0:
+    id: 4
+    count: 1
+  item1:
+    id: 5
+    count: 1
+  item2:
+    id: 0
+    count: 0
+  item3:
+    id: 3
+    count: 5
+  item4:
+    id: 0
+    count: 0
+  item5:
+    id: 0
+    count: 0
+--- !u!135 &135180244988760256
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104340}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
   m_Center: {x: 0, y: 0.26782516, z: -0.0069459975}

@@ -7,12 +7,14 @@ public class csRockController : MonoBehaviour {
 	private Animator anim;
 	private SphereCollider col;
 	private Rigidbody rigid;
+	private AudioSource audioSource;
 
 	void Start () {
 		stats = gameObject.GetComponent<csObjectStatus> ();
 		anim = gameObject.GetComponent<Animator> ();
 		col = gameObject.GetComponent<SphereCollider> ();
 		rigid = gameObject.GetComponent<Rigidbody> ();
+		audioSource = gameObject.GetComponent<AudioSource> ();
 	}
 
 	public void Dig(){
@@ -35,6 +37,7 @@ public class csRockController : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (col.collider.tag == "Pickaxe") {
 			stats.DecreaseHp (1f);
+			audioSource.Play ();
 			csInventory inv = csInventory.Instance;
 			csItem item = csItemList.Instance.GetItem (Random.Range(1, 3));
 			inv.SetToInventory (item, 1);
