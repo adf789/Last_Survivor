@@ -32,10 +32,10 @@ public class csCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		CheckWall ();
 		if (isStop)
 			return;
 		CameraRotation ();
-		CheckWall ();
 
 		// 키보드 상 C 버튼을 눌렀을 때 카메라의 위치를 3인칭 혹은 1인칭으로 변경한다.
 		if (Input.GetButtonDown("C")) {
@@ -68,6 +68,10 @@ public class csCameraController : MonoBehaviour {
 
 	private void CameraRotation(){
 		float mouseY = Input.GetAxis ("Mouse Y");
+		float mouseX = Input.GetAxis ("Mouse X");
+
+		// 마우스의 X축 회전에 따른 캐릭터 회전.
+		charTransform.Rotate (Vector3.up * mouseX * Time.deltaTime * mouseSensitive, Space.World);
 
 		// 3인칭인 경우, 1인칭인 경우 카메라 회전을 다르게 한다.
 		if (isThird) {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class csCrate : MonoBehaviour {
-	[SerializeField] private Item item0;
-	[SerializeField] private Item item1;
-	[SerializeField] private Item item2;
-	[SerializeField] private Item item3;
-	[SerializeField] private Item item4;
-	[SerializeField] private Item item5;
-	private List<Item> items = new List<Item> (6);
+	[SerializeField] private csItems item0;
+	[SerializeField] private csItems item1;
+	[SerializeField] private csItems item2;
+	[SerializeField] private csItems item3;
+	[SerializeField] private csItems item4;
+	[SerializeField] private csItems item5;
+	private List<csItems> items = new List<csItems> (6);
 	private Transform crateInv;
 	private bool isOpened;
 
@@ -29,6 +29,7 @@ public class csCrate : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider col){
 		crateInv.gameObject.SetActive (true);
+		csCameraController.isStop = true;
 		if (!isOpened) {
 			CrateSetItem ();
 			isOpened = true;
@@ -37,6 +38,7 @@ public class csCrate : MonoBehaviour {
 
 	void OnTriggerExit(Collider col){
 		crateInv.gameObject.SetActive (false);
+		csCameraController.isStop = false;
 	}
 
 	private void CrateSetItem(){

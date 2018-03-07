@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+	<combineList>
+		<Field combItem="Basic" item0="0" count0="0" item1="0" count1="0" item2="0" count2="0" item3="0" count3="0"/>
+		<Field combItem="Tent" item0="Wood" count0="3"/>
+		<Field combItem="Shovel" item0="Wood" count0="1" item1="Iron" count1="2"/>
+	</combineList>
+</root>

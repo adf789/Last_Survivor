@@ -6,16 +6,17 @@ using UnityEngine;
 public class csUIController : MonoBehaviour {
 	private GameObject inventory;
 	private GameObject crateInv;
+	private GameObject worktable;
 	private RectTransform scrollGuide;
-	private bool isShowInventory;
+	private bool isShowInventory, isShowWorktable;
 	private float[] scrollIndex = {1.5f, 12.5f, 23.5f, 34.5f, 45.5f, 56.5f, 67.5f, 78.5f, 89.5f};
 	private int curScrollIndex = 0;
 
 	void Start () {
-		Transform canvas = GameObject.Find ("Canvas").transform;
-		inventory = canvas.Find ("Scroll View").gameObject;
-		crateInv = canvas.Find ("CrateInventory").gameObject;
-		scrollGuide = canvas.Find ("QuickBar").Find ("Guide").GetComponent<RectTransform>();
+		inventory = csAlreadyGame.InventoryObj;
+		crateInv = csAlreadyGame.CrateObj;
+		worktable = csAlreadyGame.WorktableObj;
+		scrollGuide = csAlreadyGame.QuickBarObj.transform.Find ("Guide").GetComponent<RectTransform>();
 		Init ();
 		isShowInventory = false;
 	}
@@ -23,10 +24,18 @@ public class csUIController : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown ("I")) {
 			OpenInventory ();
+			csAlreadyGame.SelectItemView.gameObject.SetActive (false);
+
 		}
-		float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");
-		SetScrollIndex (mouseScroll);
-		NumKeyDown ();
+		if (Input.GetButtonDown ("J")) {
+			worktable.GetComponent<csWorktable> ().UpdateList ();
+			OpenWorktable ();
+		}
+		if (!isShowInventory && !isShowWorktable) {
+			float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");
+			SetScrollIndex (mouseScroll);
+			NumKeyDown ();
+		}
 	}
 
 	private void Init(){
@@ -39,6 +48,14 @@ public class csUIController : MonoBehaviour {
 		}
 		inventory.SetActive (false);
 		crateInv.SetActive (false);
+		worktable.SetActive (false);
+
+		Transform quickBarObj = csAlreadyGame.QuickBarObj.transform;
+		for(int i = 0; i < quickBarObj.childCount; i++){
+			if (quickBarObj.GetChild (i).name.Equals ("Guide"))
+				continue;
+			quickBarObj.GetChild (i).GetComponent<csInventorySlot> ().Init ();
+		}
 	}
 
 	private void NumKeyDown(){
@@ -67,6 +84,14 @@ public class csUIController : MonoBehaviour {
 			MoveScrollGuide ();
 			UseTools ();
 		}
+	}
+
+	// 조합창 GUI를 열고 닫는다.
+	private void OpenWorktable(){
+		isShowWorktable = !isShowWorktable;
+		worktable.SetActive (isShowWorktable);
+		csCharacterStatus.Instance.isStop = isShowWorktable;
+		csCameraController.isStop = isShowWorktable;
 	}
 
 	// 인벤토리 GUI를 열고 닫는다.
@@ -110,5 +135,4 @@ public class csUIController : MonoBehaviour {
 		MoveScrollGuide ();
 		UseTools ();
 	}
-
 }

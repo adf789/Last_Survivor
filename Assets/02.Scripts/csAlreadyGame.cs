@@ -6,11 +6,25 @@ public class csAlreadyGame : MonoBehaviour {
 	private static Dictionary<string, Sprite> itemImgs = new Dictionary<string, Sprite> ();
 	private static bool isLoaded = false;
 	private static Transform dragItemView;
+	private static Transform selectItemView;
+	private static GameObject inventoryObj;
+	private static GameObject crateObj;
+	private static GameObject worktableObj;
+	private static GameObject quickBarObj;
 
 	void Awake () {
 		csItemList list = csItemList.Instance;
+		csCombineInfo combInfo = csCombineInfo.Instance;
 		csInventory inventory = csInventory.Instance;
 		csCharacterStatus cs = csCharacterStatus.Instance;
+	}
+
+	private static void FindInit(){
+		Transform canvas = GameObject.Find ("Canvas").transform;
+		inventoryObj = canvas.Find ("InventoryView").gameObject;
+		crateObj = canvas.Find ("CrateInventory").gameObject;
+		worktableObj = canvas.Find ("WorktableView").gameObject;
+		quickBarObj = canvas.Find ("QuickBar").gameObject;
 	}
 
 	// 아이템의 이미지를 로드한다.
@@ -23,6 +37,7 @@ public class csAlreadyGame : MonoBehaviour {
 		itemImgs.Add ("Axe", Resources.Load<Sprite> ("Axe"));
 		itemImgs.Add ("Pickaxe", Resources.Load<Sprite> ("Pickaxe"));
 		itemImgs.Add ("Shovel", Resources.Load<Sprite> ("Shovel"));
+		itemImgs.Add ("Tent", Resources.Load<Sprite> ("Tent"));
 	}
 
 	public static Sprite GetImg(string key){
@@ -39,9 +54,55 @@ public class csAlreadyGame : MonoBehaviour {
 	// 아이템을 드래그할 때 아이템의 이미지를 띄울 오브젝트를 반환한다.
 	public static Transform DragItemView{
 		get{
-			if(dragItemView == null)
+			if (dragItemView == null) {
 				dragItemView = GameObject.Find ("Canvas").transform.Find ("DragImg");
+			}
 			return dragItemView;
+		}
+	}
+
+	public static GameObject InventoryObj{
+		get{
+			if (inventoryObj == null) {
+				FindInit ();
+			}
+			return inventoryObj;
+		}
+	}
+
+	public static GameObject CrateObj{
+		get{
+			if (crateObj == null) {
+				FindInit ();
+			}
+			return crateObj;
+		}
+	}
+
+	public static GameObject WorktableObj{
+		get{
+			if (worktableObj == null) {
+				FindInit ();
+			}
+			return worktableObj;
+		}
+	}
+
+	public static GameObject QuickBarObj{
+		get{
+			if (quickBarObj == null) {
+				FindInit ();
+			}
+			return quickBarObj;
+		}
+	}
+
+	public static Transform SelectItemView{
+		get{
+			if (selectItemView == null) {
+				selectItemView = GameObject.Find ("Canvas").transform.Find ("SelectItem");
+			}
+			return selectItemView;
 		}
 	}
 }

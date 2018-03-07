@@ -6,6 +6,7 @@ using UnityEngine;
 public class csCharacterController : MonoBehaviour {
 	private CharacterController cc;
 	private csCharacterStatus charStats;
+	private Transform transform;
 	[SerializeField]private Transform cameraLocation;
 	[SerializeField]private Transform playerModel;
 	[SerializeField]private GameObject[] weapons;
@@ -14,6 +15,7 @@ public class csCharacterController : MonoBehaviour {
 	private float gravity, mouseSensitive, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed;
 
 	void Awake() {
+		transform = gameObject.GetComponent<Transform> ();
 		cc = gameObject.GetComponent<CharacterController> ();
 		charStats = csCharacterStatus.Instance;
 		thirdAnim = gameObject.GetComponent<Animator> ();
@@ -37,7 +39,6 @@ public class csCharacterController : MonoBehaviour {
 		if (charStats.isStop)
 			return;
 		CharMove ();
-		CharRot ();
 		if(Input.GetKeyDown(KeyCode.F) && isPlayLumbering())
 			StartCoroutine ("CharLumber");
 
@@ -123,15 +124,6 @@ public class csCharacterController : MonoBehaviour {
 			return;
 		}
 		curAnim.SetFloat ("Walk", 1);
-	}
-
-	// 사용자의 마우스 움직임으로 캐릭터의 방향을 회전한다.
-	private void CharRot(){
-		float mouseX = Input.GetAxis ("Mouse X");
-
-		// 마우스의 X축 회전에 따른 캐릭터 회전.
-		transform.Rotate (Vector3.up * mouseX * Time.deltaTime * mouseSensitive, Space.World);
-
 	}
 
 	public float GetSensetive{

@@ -4,23 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class csInventorySlot : MonoBehaviour {
-	private Transform dragPos;
-	private Image dragImg;
+	private static Transform dragPos;
+	private static Image dragImg;
+	private static Transform SelectItemPos;
 	private csItem item;
-	private csItem emptyItem;
 	private csInventorySlot slot;
 	private int itemCount;
 	private bool hasItem;
-
+		
 	public void Init(){
-		dragPos = csAlreadyGame.DragItemView;
-		dragImg = dragPos.GetComponent<Image> ();
-		emptyItem = csItemList.Instance.EmptyItem;
-		item = emptyItem;
+		if (dragPos == null || dragImg == null || SelectItemPos == null) {
+			dragPos = csAlreadyGame.DragItemView;
+			dragImg = dragPos.GetComponent<Image> ();
+			SelectItemPos = csAlreadyGame.SelectItemView;
+		}
+		item = csItemList.Instance.EmptyItem;
 		GetComponent<Image> ().sprite = item.Picture;
 		slot = GetComponent<csInventorySlot> ();
 	}
-		
+
 	public void ItemDrag(){
 		if (!hasItem)
 			return;
@@ -29,21 +31,27 @@ public class csInventorySlot : MonoBehaviour {
 	}
 
 	public void ItemDown(){
-		if (item.Equals(emptyItem)) {
-			hasItem = false;
-			return;
-		} else {
-			hasItem = true;
-		}
-		// 드래그할 아이템의 정보를 dragPos에 임시 저장한다.
-		dragPos.gameObject.SetActive (true);
-		dragPos.position = Input.mousePosition;
-		dragImg.sprite = GetComponent<Image> ().sprite;
-		dragPos.GetChild (0).GetComponent<Text> ().text = transform.GetChild (0).GetComponent<Text> ().text;
+		if (Input.GetButtonDown ("Fire1")) {
+			SelectItemPos.gameObject.SetActive (false);
+			if (csItemList.Instance.IsEmpty (item)) {
+				hasItem = false;
+				return;
+			} else {
+				hasItem = true;
+			}
+			// 드래그할 아이템의 정보를 dragPos에 임시 저장한다.
+			dragPos.gameObject.SetActive (true);
+			dragPos.position = Input.mousePosition;
+			dragImg.sprite = GetComponent<Image> ().sprite;
+			dragPos.GetChild (0).GetComponent<Text> ().text = transform.GetChild (0).GetComponent<Text> ().text;
 
-		// 현재 아이템 슬롯은 아무것도 없는 것처럼 보이게 한다.
-		GetComponent<Image> ().sprite = emptyItem.Picture;
-		transform.GetChild (0).GetComponent<Text> ().text = "";
+			// 현재 아이템 슬롯은 아무것도 없는 것처럼 보이게 한다.
+			GetComponent<Image> ().sprite = csItemList.Instance.EmptyItem.Picture;
+			transform.GetChild (0).GetComponent<Text> ().text = "";
+		}else if(Input.GetButtonDown("Fire2")){
+			SelectItemPos.gameObject.SetActive (true);
+			SelectItemPos.position = transform.position + Vector3.down * 40;
+		}
 	}
 
 	public void EndItemDrag(){
@@ -68,7 +76,7 @@ public class csInventorySlot : MonoBehaviour {
 	}
 
 	public void SetEmpty(){
-		SetItem (emptyItem, 0);
+		SetItem (csItemList.Instance.EmptyItem, 0);
 	}
 
 	public void Restore(){

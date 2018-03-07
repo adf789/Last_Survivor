@@ -5,17 +5,11 @@ using UnityEngine.UI;
 
 public class csCrateSlot : MonoBehaviour {
 	private csItem item;
-	private csItem emptyItem;
 	private int itemCount;
 	private csInventory inventory;
 
-	void Start(){
-		
-	}
-
 	public void Init(){
-		emptyItem = csItemList.Instance.EmptyItem;
-		item = emptyItem;
+		item = csItemList.Instance.EmptyItem;
 		itemCount = 0;
 		inventory = csInventory.Instance;
 		gameObject.GetComponent<Image> ().sprite = item.Picture;
@@ -23,11 +17,11 @@ public class csCrateSlot : MonoBehaviour {
 	}
 
 	public void itemDown(){
-		if (item.Equals (emptyItem))
+		if (csItemList.Instance.IsEmpty(item))
 			return;
 
 		inventory.SetToInventory (item, itemCount);
-		SetItem (emptyItem, 0);
+		SetItem (csItemList.Instance.EmptyItem, 0);
 	}
 
 

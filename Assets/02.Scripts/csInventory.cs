@@ -29,13 +29,12 @@ public class csInventory{
 
 	private csInventory(){
 		// 처음 인벤토리를 찾을시 objInventory의 GameObject를 찾는다.
-		GameObject canvas = GameObject.Find ("Canvas");
-		objInventory = canvas.transform.Find("Scroll View").GetChild(0).Find ("Inventory");
+		objInventory = csAlreadyGame.InventoryObj.transform.GetChild(0).Find ("Inventory");
 		// Inventory 오브젝트의 위치를 초기화한다.
 		objInventory.GetComponent<RectTransform> ().localPosition = new Vector3 (0f, -71.545f);
 
 		// 항시 열려있는 퀵바 GameObject를 찾는다.
-		objQuickBar = canvas.transform.Find ("QuickBar");
+		objQuickBar = csAlreadyGame.QuickBarObj.transform;
 
 		// 처음 인벤토리를 초기화한다.
 		for (int i = 0; i < SIZE; i++) {
@@ -46,18 +45,21 @@ public class csInventory{
 	}
 
 	// 아이템과 개수로 현재 인벤토리 상태를 재배열한다.
-	public void SetToInventory(csItem item, int count){
+	public bool SetToInventory(csItem item, int count){
 		if (SetToList (item, count)) {
-			csMessageBox.Show (item.Name + " " + count + "개를 얻었습니다.");
+			if(count > 0)
+				csMessageBox.Show (item.Name + " " + count + "개를 얻었습니다.");
+			return true;
 		} else if (count < 0) {
 			csMessageBox.Show ("해당 아이템이 인벤토리에 충분치 않습니다.");
-		} else if(curIndex > 11){
+		} else if(curIndex > SIZE){
 			csMessageBox.Show ("인벤토리 공간이 없습니다.");
 		}
+		return false;
 			
 	}
 
-	public int GetToInventory(csItem item){
+	public int CountToInventory(csItem item){
 		if (IsContain (item)) {
 			int index = curInventory.IndexOf (item);
 			return countList[index];
@@ -73,6 +75,12 @@ public class csInventory{
 
 	public bool HasInventory(csItem item){
 		return IsContain (item);
+	}
+
+	public int Count{
+		get{
+			return curInventory.Count;
+		}
 	}
 
 	// 현재 사용하는 csItem과 int를 담고있는 list의 순서를 같게 하기 위해
@@ -107,8 +115,9 @@ public class csInventory{
 		}
 		// 해당 아이템이 없는 경우
 		else {
-			if (count <= 0 || curIndex > 11)
+			if (count <= 0 || curIndex > 11) {
 				return false;
+			}
 			// 아이템 추가 전 추가해야 될 index를 찾음.
 			SetIndex ();
 
