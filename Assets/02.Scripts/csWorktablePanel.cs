@@ -30,7 +30,7 @@ public class csWorktablePanel : MonoBehaviour {
 			}
 		}
 		csInventory.Instance.SetToInventory (combItem, combCount);
-		workTable.RemoveAtPossibilityList (combItem);
+		workTable.RemoveAtPossibilityList ();
 		workTable.UpdateList();
 	}
 

@@ -5,20 +5,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class csWorktable : MonoBehaviour{
-	private bool isChangedList;
+	private bool isChangedList, isInit = false;
 	private Transform worktableObj;
 	private List<csItem> possibleCombList;
 	[SerializeField]
 	private GameObject combPanel;
 
 	void Start(){
+		
+	}
+
+	private void Init(){
 		worktableObj = transform.GetChild (0).GetChild (0).GetChild (0);
-		possibleCombList = new List<csItem>();
+		possibleCombList = new List<csItem> ();
 		isChangedList = false;
 	}
 
 	// 현재 인벤토리에서 조합 가능한 재료를 탐색한다.
 	public void UpdateList(){
+		if (!isInit) {
+			Init ();
+			isInit = true;
+		}
 		for (int i = 0; i < csInventory.Instance.Count; i++) {
 			csItem item = csInventory.Instance.GetToInventory (i);
 			if (csItemList.Instance.IsEmpty (item) || item.Type != (int)csItemList.Type.ETC)
@@ -119,8 +127,14 @@ public class csWorktable : MonoBehaviour{
 
 	}
 
-	public void RemoveAtPossibilityList(csItem combItem){
-		if (!csCombineInfo.Instance.isPossibility (combItem) && possibleCombList.Contains (combItem))
-			this.possibleCombList.Remove (combItem);
+	public void RemoveAtPossibilityList(){
+		// 조합 아이템 리스트 중에서 현재 조합이 가능한 것만 제외한 후 나머지는 제거한다.
+		for (int i = 0; i < possibleCombList.Count;) {
+			csItem combItem = possibleCombList[i++];
+			if (!csCombineInfo.Instance.isPossibility (combItem) && possibleCombList.Contains (combItem)) {
+				this.possibleCombList.Remove (combItem);
+				i--;
+			}
+		}
 	}
 }

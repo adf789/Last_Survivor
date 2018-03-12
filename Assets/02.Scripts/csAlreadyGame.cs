@@ -7,6 +7,7 @@ public class csAlreadyGame : MonoBehaviour {
 	private static bool isLoaded = false;
 	private static Transform dragItemView;
 	private static Transform selectItemView;
+	private static Transform focusObj;
 	private static GameObject inventoryObj;
 	private static GameObject crateObj;
 	private static GameObject worktableObj;
@@ -19,12 +20,17 @@ public class csAlreadyGame : MonoBehaviour {
 		csCharacterStatus cs = csCharacterStatus.Instance;
 	}
 
+	void Start(){
+		csInventory.Instance.SetToInventory (csItemList.Instance.GetItem ("Wood"), 3);
+	}
+
 	private static void FindInit(){
 		Transform canvas = GameObject.Find ("Canvas").transform;
 		inventoryObj = canvas.Find ("InventoryView").gameObject;
 		crateObj = canvas.Find ("CrateInventory").gameObject;
 		worktableObj = canvas.Find ("WorktableView").gameObject;
 		quickBarObj = canvas.Find ("QuickBar").gameObject;
+		focusObj = canvas.Find ("Focus");
 	}
 
 	// 아이템의 이미지를 로드한다.
@@ -38,6 +44,7 @@ public class csAlreadyGame : MonoBehaviour {
 		itemImgs.Add ("Pickaxe", Resources.Load<Sprite> ("Pickaxe"));
 		itemImgs.Add ("Shovel", Resources.Load<Sprite> ("Shovel"));
 		itemImgs.Add ("Tent", Resources.Load<Sprite> ("Tent"));
+		itemImgs.Add ("Campfire", Resources.Load<Sprite> ("Campfire"));
 	}
 
 	public static Sprite GetImg(string key){
@@ -103,6 +110,15 @@ public class csAlreadyGame : MonoBehaviour {
 				selectItemView = GameObject.Find ("Canvas").transform.Find ("SelectItem");
 			}
 			return selectItemView;
+		}
+	}
+
+	public static Transform FocusObj{
+		get{
+			if (focusObj == null) {
+				FindInit ();
+			}
+			return focusObj;
 		}
 	}
 }

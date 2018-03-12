@@ -32,10 +32,10 @@ public class csCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CheckWall ();
 		if (isStop)
 			return;
 		CameraRotation ();
+		CheckWall ();
 
 		// 키보드 상 C 버튼을 눌렀을 때 카메라의 위치를 3인칭 혹은 1인칭으로 변경한다.
 		if (Input.GetButtonDown("C")) {
@@ -106,10 +106,10 @@ public class csCameraController : MonoBehaviour {
 	private void CheckWall(){
 		RaycastHit hit;
 		Vector3 pos = transform.position;
-		if (Physics.Linecast(charTransform.position, transform.position, out hit)) {
+		if (Physics.Linecast (charTransform.position, transform.position, out hit)) {
 			if (hit.collider.tag.Equals ("Player"))
 				return;
-			if (hit.collider.name.Equals ("Ground")) {
+			if (hit.collider.tag.Equals ("Ground")) {
 				wallPos.Set (pos.x, hit.point.y, pos.z);
 			} else {
 				wallPos.Set (hit.point.x, pos.y, hit.point.z);

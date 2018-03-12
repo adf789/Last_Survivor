@@ -28,6 +28,8 @@ public class csCrate : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider col){
+		if (!col.tag.Equals ("Player"))
+			return;
 		crateInv.gameObject.SetActive (true);
 		csCameraController.isStop = true;
 		if (!isOpened) {

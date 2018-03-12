@@ -28,8 +28,8 @@ public class csUIController : MonoBehaviour {
 
 		}
 		if (Input.GetButtonDown ("J")) {
-			worktable.GetComponent<csWorktable> ().UpdateList ();
 			OpenWorktable ();
+			worktable.GetComponent<csWorktable> ().UpdateList ();
 		}
 		if (!isShowInventory && !isShowWorktable) {
 			float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");

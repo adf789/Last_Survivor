@@ -28,6 +28,7 @@ public class csItemList{
 		AddItem (id, new csItem("Pickaxe", id++, (int)Type.TOOL, csAlreadyGame.GetImg("Pickaxe")));	// id : 5
 		AddItem (id, new csItem("Shovel", id++, (int)Type.TOOL, csAlreadyGame.GetImg("Shovel")));	// id : 6
 		AddItem (id, new csItem("Tent", id++, (int)Type.BUILD, csAlreadyGame.GetImg("Tent")));	// id : 7
+		AddItem (id, new csItem("Campfire", id++, (int)Type.BUILD, csAlreadyGame.GetImg("Campfire")));	// id : 8
 	}
 
 	private void AddItem(int id, csItem item){
