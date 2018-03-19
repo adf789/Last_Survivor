@@ -21,7 +21,7 @@ public class csAlreadyGame : MonoBehaviour {
 	}
 
 	void Start(){
-		csInventory.Instance.SetToInventory (csItemList.Instance.GetItem ("Wood"), 3);
+		
 	}
 
 	private static void FindInit(){

@@ -10,6 +10,7 @@ TagManager:
   - Pickaxe
   - Rock
   - Ground
+  - Monster
   layers:
   - Default
   - TransparentFX

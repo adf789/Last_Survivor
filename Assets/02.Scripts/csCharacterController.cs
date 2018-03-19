@@ -96,7 +96,7 @@ public class csCharacterController : MonoBehaviour {
 
 			// 'R'키가 눌러진 상태에서 이동하는 경우 moveSpeed를 변경하여 캐릭터의 속도를 빠르게 한다.
 			if (Input.GetButton("Run")) {
-				if (moveSpeed < 3f)
+				if (moveSpeed < 4f)
 					moveSpeed += 0.1f;
 				if (curMoveSpeed < 20f)
 					curMoveSpeed += 1f;

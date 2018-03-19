@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class csObjectStatus : MonoBehaviour {
 	[SerializeField]private float hp;
+	private float curHp;
 	private bool isDead;
 
 	void Start () {
 		isDead = false;
+		curHp = hp;
 	}
 
 	public float GetHp{
 		get{
-			return hp;
+			return curHp;
 		}
 	}
 
 	public void DecreaseHp(float number){
-		hp -= number;
-		Debug.Log (gameObject.name + " HP : " + hp);
+		curHp -= number;
+		Debug.Log (gameObject.name + " HP : " + curHp);
 	}
 
 	public void death(){
