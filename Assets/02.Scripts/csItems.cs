@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+// 아이템과 개수를 묶기위한 구조체
 [Serializable]
 public struct csItems {
 	public enum Id{

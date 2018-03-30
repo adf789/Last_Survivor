@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 게임상의 모든 아이템을 해당 클래스에서 정의
 public class csItemList{
 	// Non-generic이 아닌 Generic을 이용한 방법으로 Dictionary를 사용
 	private static Dictionary<int, csItem> itemDatabase = new Dictionary<int, csItem> ();
@@ -63,6 +64,22 @@ public class csItemList{
 	public csItem EmptyItem{
 		get{
 			return itemDatabase [-1];
+		}
+	}
+
+	// 아이템별로 사용되었을 시 행동 정의
+	public void ItemUse(csItem item){
+		switch (item.Name) {
+		case "Meat":
+			csCharacterStatus.Instance.ChangeFatigue (10);
+			csCharacterStatus.Instance.ChangeHp (5);
+			csSelectedItem.Instance.UseItem ();
+			break;
+		case "Tent":
+		case "Campfire":
+			csBuilding.Instance.SearchBuildingObj (item);
+			csBuilding.Instance.IsBuilding = true;
+			break;
 		}
 	}
 

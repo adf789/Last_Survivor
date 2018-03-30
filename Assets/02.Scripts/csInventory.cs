@@ -59,6 +59,7 @@ public class csInventory{
 			
 	}
 
+	// 매개변수의 아이템이 현재 인벤토리에 있는지 판단 후 가지고 있는 개수를 반환한다.
 	public int CountToInventory(csItem item){
 		if (IsContain (item)) {
 			int index = curInventory.IndexOf (item);
@@ -67,6 +68,7 @@ public class csInventory{
 		return 0;
 	}
 
+	// 매개변수의 index에 해당하는 아이템을 반환한다.
 	public csItem GetToInventory(int index){
 		if (index < 0 || index >= SIZE)
 			return csItemList.Instance.EmptyItem;
@@ -193,6 +195,7 @@ public class csInventory{
 		objSlot.GetComponent<csInventorySlot> ().SetEmpty ();
 	}
 
+	// 매개변수로 넘어온 toPos의 위치에 있는 아이템과 fromSlot의 아이템을 swap한다.
 	public void ItemSwap(csInventorySlot fromSlot, Vector3 toPos){
 		csInventorySlot toSlot;
 		int toIndex;
@@ -217,7 +220,8 @@ public class csInventory{
 		SetIndex ();
 	}
 
-	// 해당 좌표에 있는 오브젝트의 csInventorySlot 인스턴스를 반환한다.
+	// 해당 좌표에 있는 오브젝트의 csInventorySlot 인스턴스를 찾고
+	// 없는 경우 false를 반환한다.
 	private bool NearSlot(Vector3 pos, out csInventorySlot slot, out int index){
 		Transform tempObj;
 		bool isQuick;

@@ -35,6 +35,7 @@ public class csStateMachine <T>{
 		}
 	}
 
+	// 첫 상태를 초기화한다.
 	public void Init(T monster, csFSMstate<T> initState){
 		this.monster = monster;
 		ChangeState (initState);
@@ -47,6 +48,7 @@ public class csStateMachine <T>{
 		}
 	}
 
+	// 이전 상태로 돌아간다.
 	public void PrevRestore(){
 		if (prevState != null) {
 			ChangeState (prevState);

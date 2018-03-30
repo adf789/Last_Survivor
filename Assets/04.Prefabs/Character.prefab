@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4940276110748758}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4133704724833160}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRFingers1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4939894468205064}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4087959439924960}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATSpine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4046311576370128}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4469078356180778}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRThigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 143371530170854656}
   - component: {fileID: 114749616331281404}
   - component: {fileID: 114133731253597500}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4052035211758722}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRThumb2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4668977350125786}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATNeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4062446526985474}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4869753167801564}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLCalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4789886105803936}
   - component: {fileID: 95046767074119898}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FirstMotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4669936034925528}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WeaponSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4331535168952732}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRClavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4130617471718510}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LBracers_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4102095533272520}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRToe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 4993720027891442}
   - component: {fileID: 33910757548781908}
   - component: {fileID: 23952482084794884}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NPC_Hair_009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4042314575075028}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLThumb2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4719696048059986}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRLegPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4408500772374256}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRForearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4683893276860020}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4116730373471854}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,8 +364,8 @@ GameObject:
   m_TagString: Pickaxe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1371046603142562
 GameObject:
   m_ObjectHideFlags: 1
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4820740859217488}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRigLLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4028859126518664}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RShoulders_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4590727599644646}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ShieldBow_Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4756708870557340}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RBracers_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4446055485812016}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4624814713029508}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRCalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4800632976771346}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Backet_Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,13 +479,31 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4073327856533106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FreeCharacter_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1455471446878238
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4718365826548386}
+  - component: {fileID: 33333781731117192}
+  - component: {fileID: 23102308412996888}
+  - component: {fileID: 64799274909952194}
+  m_Layer: 2
+  m_Name: Pickaxe
+  m_TagString: Pickaxe
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1470288233686212
 GameObject:
   m_ObjectHideFlags: 1
@@ -496,7 +514,7 @@ GameObject:
   - component: {fileID: 4599022524462242}
   - component: {fileID: 33150103443332648}
   - component: {fileID: 23323362005483438}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NPC_Beard_008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,13 +531,13 @@ GameObject:
   - component: {fileID: 4374403318432860}
   - component: {fileID: 33799912140740996}
   - component: {fileID: 23838361251830444}
-  m_Layer: 0
-  m_Name: NPC_Tools_Axe_004
-  m_TagString: Untagged
+  m_Layer: 2
+  m_Name: Axe
+  m_TagString: Axe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1503047225805240
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +546,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4854081552547358}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ThirdCameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +561,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4448343108974678}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATSpine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +581,8 @@ GameObject:
   - component: {fileID: 81364497049091946}
   - component: {fileID: 114858437434737694}
   - component: {fileID: 82128242770363456}
-  m_Layer: 0
+  - component: {fileID: 45714510178386660}
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -578,7 +597,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4786090161630208}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRForearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +612,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4343059814434464}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +627,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4158226327441974}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLClavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +642,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4692095704770102}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle View 001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +657,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4386087338564940}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLFingers2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +672,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4290003677114080}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRigRArmIKTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +687,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4791906917805590}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRigLArmIKTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +702,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4736992419620524}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRFingers2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4462325061185286}
   - component: {fileID: 137738241325890636}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NPC_Bag_006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +733,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4964495143220152}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATSpine3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +748,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4508250634778106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRigLLegDigit12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +763,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4826723335810080}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LShoulders_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +778,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4235316904199584}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLThigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +793,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4739592287061268}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4877688078311136}
   - component: {fileID: 137616573890045286}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NPC_Man_Normal001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +824,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4167407799779996}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRToe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +839,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298949059085862}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +854,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4477602847938838}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLForearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -868,7 +887,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4735783113988102}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRThumb1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,7 +902,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4504708724506146}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RShoulders_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -898,7 +917,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4940228581965318}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRFingers2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +932,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4058799412505880}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRThumb1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +947,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4919494274937070}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RBracers_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +962,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4242262920817530}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRThumb2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +977,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4283550105202134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLThumb1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,7 +992,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4351349809569606}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WeaponSlotPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -988,7 +1007,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4286809397286070}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1003,7 +1022,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4626483381634182}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLLegPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1018,7 +1037,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4440595913536618}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATLFingers1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1052,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4415956968404892}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Character001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1067,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4759355934339182}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WeaponSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,7 +1082,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4620746530869710}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CATRFingers1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1410,13 +1429,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353946982138286}
-  m_LocalRotation: {x: 1, y: 0.000000029802315, z: -0.000000029802315, w: -0.000000022351736}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.71239656, y: -0.3081684, z: -0.59001005, w: 0.2222869}
+  m_LocalPosition: {x: 0.989, y: 0.032, z: -0.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4759355934339182}
+  m_Father: {fileID: 4669936034925528}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 182.69, y: 78.16, z: 44.6}
 --- !u!4 &4374403318432860
 Transform:
   m_ObjectHideFlags: 1
@@ -1690,6 +1709,7 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.9999998}
   m_Children:
   - {fileID: 4374403318432860}
+  - {fileID: 4371552745207162}
   m_Father: {fileID: 4298949059085862}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -89.2799, y: -171.48952, z: 171.31839}
@@ -1722,6 +1742,19 @@ Transform:
   m_Father: {fileID: 4073327856533106}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4718365826548386
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455471446878238}
+  m_LocalRotation: {x: 1, y: 0.000000029802315, z: -0.000000029802315, w: -0.000000022351736}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4759355934339182}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!4 &4719696048059986
 Transform:
   m_ObjectHideFlags: 1
@@ -1802,7 +1835,7 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.9999998}
   m_Children:
   - {fileID: 4891139984406548}
-  - {fileID: 4371552745207162}
+  - {fileID: 4718365826548386}
   m_Father: {fileID: 4062446526985474}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -89.2799, y: -171.48952, z: 171.31839}
@@ -2078,6 +2111,40 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!23 &23102308412996888
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455471446878238}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 38b7847f093ad47409a257f56621ccbe, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23323362005483438
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2255,6 +2322,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470288233686212}
   m_Mesh: {fileID: 4300002, guid: 1b7945602ded3ec43804b120aa9ed037, type: 3}
+--- !u!33 &33333781731117192
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455471446878238}
+  m_Mesh: {fileID: 4300002, guid: f37d5e07df3974a41a20930105d62d3e, type: 3}
 --- !u!33 &33399526977600254
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2283,12 +2357,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260755814571352}
   m_Mesh: {fileID: 4300000, guid: 1b7945602ded3ec43804b120aa9ed037, type: 3}
+--- !u!45 &45714510178386660
+Skybox:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1547264702422724}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: eca3c00ef1cc6ce45bfade23ebc4ab1e, type: 2}
 --- !u!64 &64756820955656898
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353946982138286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: f37d5e07df3974a41a20930105d62d3e, type: 3}
+--- !u!64 &64799274909952194
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455471446878238}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -2385,7 +2481,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2448,9 +2544,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLocation: {fileID: 4422124646747936}
   playerModel: {fileID: 4073327856533106}
-  weapons:
+  thirdWeapons:
   - {fileID: 1750234985863988}
+  - {fileID: 1455471446878238}
+  firstWeapons:
+  - {fileID: 1500707310382636}
   - {fileID: 1353946982138286}
+  attackEffectT: {fileID: 0}
+  takeEffectT: {fileID: 0}
 --- !u!114 &114749616331281404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2462,7 +2563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852f8859771ae5449bf8e10ea2ca607b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curHp: 100
+  curFatigue: 100
   isStop: 0
+  isSleep: 0
 --- !u!114 &114858437434737694
 MonoBehaviour:
   m_ObjectHideFlags: 1

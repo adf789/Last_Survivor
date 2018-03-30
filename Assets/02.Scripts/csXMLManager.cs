@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
+// 외부 xml파일을 관리하는 클래스
 public class csXMLManager{
 	private static XmlNodeList xmlNodeList;
 	private static bool isLoaded = false;
@@ -20,7 +21,7 @@ public class csXMLManager{
 		}
 		return null;
 	}
-
+		
 	private static void LoadXML(string nodeName){
 		string fileName = "Schema";
 		TextAsset txtAsset = (TextAsset)Resources.Load ("XML/" + fileName);

@@ -22,17 +22,16 @@ GameObject:
   - component: {fileID: 33793070043800804}
   - component: {fileID: 23355107680409692}
   - component: {fileID: 135073933740924890}
-  - component: {fileID: 114349063349400852}
   - component: {fileID: 114484659562121460}
   - component: {fileID: 54265258687774820}
   - component: {fileID: 82401302972405046}
   - component: {fileID: 95458445413351788}
   m_Layer: 0
   m_Name: Rock
-  m_TagString: Rock
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4984088494733608
 Transform:
@@ -123,7 +122,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -170,7 +169,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -200,18 +199,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114349063349400852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185572968352036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0aa53f67ab73f54cbb1b000ce2ae547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 10
 --- !u!114 &114484659562121460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,6 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc40fc68b2f92144c979c00c720a9e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 10
+  curHp: 0
 --- !u!135 &135073933740924890
 SphereCollider:
   m_ObjectHideFlags: 1

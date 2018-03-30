@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 아이템이 사용에 관한 이벤트 클래스
 public class csSelectedItem : MonoBehaviour {
 	private csItem curItem;
 	private int count;
 	private static csSelectedItem _instance;
 
+	// 아이템을 사용하는 이벤트
 	public void BtnSelect(){
 		gameObject.SetActive (false);
-		if (curItem.Type == (int)csItemList.Type.BUILD) {
-			csBuilding.Instance.SearchBuildingObj (curItem);
-			csBuilding.Instance.IsBuilding = true;
-		}
+		csItemList.Instance.ItemUse (curItem);
 	}
 
+	// 아이템을 버리는 이벤트
 	public void BtnDelete(){
 		csInventory.Instance.SetToInventory (curItem, -count);
 		csMessageBox.Show (curItem.Name + "을(를) 모두 버렸습니다.");
@@ -36,6 +36,8 @@ public class csSelectedItem : MonoBehaviour {
 		}
 	}
 
+	// 선택된 아이템을 소모함
+	// 외부에서 사용될 경우
 	public void UseItem(){
 		csInventory.Instance.SetToInventory (curItem, -1);
 	}

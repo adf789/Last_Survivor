@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 게임상 아이템 클래스
+// 해당 클래스에 조합재료, 조합가능한 아이템을 정의하기위해 클래스로 정의
 public class csItem {
 	private string name;
 	private int id;
@@ -41,6 +43,7 @@ public class csItem {
 		}
 	}
 
+	// 조합 가능한 List를 반환
 	public List<csItems> CombinationList{
 		get{
 			if (combList == null)
@@ -49,6 +52,7 @@ public class csItem {
 		}
 	}
 
+	// 조합 재료 List를 반환
 	public List<csItems> MaterialList{
 		get{
 			if (materialList == null)
@@ -57,6 +61,7 @@ public class csItem {
 		}
 	}
 
+	// 조합 가능한 아이템을 List에 추가
 	public void AddCombination(csItem item, int count){
 		csItems items = new csItems (item, count);
 		if (combList == null)
@@ -64,6 +69,7 @@ public class csItem {
 		combList.Add (items);
 	}
 
+	// 해당 아이템을 조합하기 위한 재료를 List에 추가
 	public void AddMaterial(csItem item, int count){
 		csItems items = new csItems (item, count);
 		if (materialList == null)

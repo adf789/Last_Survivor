@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 게임의 성능을 위해 해당 클래스에서 필요한 오브젝트들을 미리 초기화한다.
 public class csAlreadyGame : MonoBehaviour {
 	private static Dictionary<string, Sprite> itemImgs = new Dictionary<string, Sprite> ();
 	private static bool isLoaded = false;
@@ -12,7 +13,10 @@ public class csAlreadyGame : MonoBehaviour {
 	private static GameObject crateObj;
 	private static GameObject worktableObj;
 	private static GameObject quickBarObj;
+	private static GameObject hpBarObj;
+	private static GameObject fatigueBarObj;
 
+	// 싱글톤 객체들을 호출하여 미리 초기화를 한다.
 	void Awake () {
 		csItemList list = csItemList.Instance;
 		csCombineInfo combInfo = csCombineInfo.Instance;
@@ -20,10 +24,7 @@ public class csAlreadyGame : MonoBehaviour {
 		csCharacterStatus cs = csCharacterStatus.Instance;
 	}
 
-	void Start(){
-		
-	}
-
+	// UI의 오브젝트들을 미리 찾는다.
 	private static void FindInit(){
 		Transform canvas = GameObject.Find ("Canvas").transform;
 		inventoryObj = canvas.Find ("InventoryView").gameObject;
@@ -31,6 +32,8 @@ public class csAlreadyGame : MonoBehaviour {
 		worktableObj = canvas.Find ("WorktableView").gameObject;
 		quickBarObj = canvas.Find ("QuickBar").gameObject;
 		focusObj = canvas.Find ("Focus");
+		hpBarObj = canvas.Find ("StatusView").transform.Find ("HpBar").gameObject;
+		fatigueBarObj = canvas.Find ("StatusView").transform.Find ("FatigueBar").gameObject;
 	}
 
 	// 아이템의 이미지를 로드한다.
@@ -119,6 +122,24 @@ public class csAlreadyGame : MonoBehaviour {
 				FindInit ();
 			}
 			return focusObj;
+		}
+	}
+
+	public static GameObject FatigueBarObj{
+		get{
+			if (fatigueBarObj == null) {
+				FindInit ();
+			}
+			return fatigueBarObj;
+		}
+	}
+
+	public static GameObject HpObj{
+		get{
+			if (hpBarObj == null) {
+				FindInit ();
+			}
+			return hpBarObj;
 		}
 	}
 }

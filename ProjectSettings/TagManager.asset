@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerCamera
-  - Tree
   - Axe
   - Pickaxe
   - Rock
   - Ground
   - Monster
+  - Resource
+  - Crate
   layers:
   - Default
   - TransparentFX

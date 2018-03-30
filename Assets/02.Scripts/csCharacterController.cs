@@ -9,73 +9,133 @@ public class csCharacterController : MonoBehaviour {
 	private Transform transform;
 	[SerializeField]private Transform cameraLocation;
 	[SerializeField]private Transform playerModel;
-	[SerializeField]private GameObject[] weapons;
-	private Animator thirdAnim, firstAnim, curAnim;
+	[SerializeField]private GameObject[] thirdWeapons;
+	[SerializeField]private Transform attackEffectT;
+	[SerializeField]private Transform takeEffectT;
+	private ParticleSystem attackPS;
+	private ParticleSystem takePS;
+	private Animator thirdAnim;
 	private Vector3 charDir;
-	private float gravity, mouseSensitive, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed;
+	private float gravity, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed, fatTimer;
 
+	// 오브젝트 및 변수 초기화
 	void Awake() {
 		transform = gameObject.GetComponent<Transform> ();
 		cc = gameObject.GetComponent<CharacterController> ();
 		charStats = csCharacterStatus.Instance;
+		attackPS = attackEffectT.GetComponent<ParticleSystem> ();
+		takePS = takeEffectT.GetComponent<ParticleSystem> ();
 		thirdAnim = gameObject.GetComponent<Animator> ();
-		firstAnim = transform.Find ("Main Camera").Find ("FirstMotion").GetComponent<Animator>();
 		Init ();
 	}
 
 	void Init(){
 		// 초기 조건 설정
 		charDir = Vector3.zero;
-		curAnim = thirdAnim;
 		gravity = 3f;
-		mouseSensitive = 80f;
 		moveSpeed = 1f;
 		jumpSpeed = 0.8f;
 		jumpLocation = 0f;
 		curMoveSpeed = 0f;
+		fatTimer = 0f;
 	}
 
+	// 캐릭터의 움직임 유무를 확인하고 배고픔감소, 이동, 상호작용을 한다.
 	void Update () {
 		if (charStats.isStop)
 			return;
+		DecreaseFat ();
 		CharMove ();
-		if(Input.GetKeyDown(KeyCode.F) && isPlayLumbering())
+		// 앞의 오브젝트와 상호작용하기 위해선 건설상태가 아니고 점프상태가 아닐 때 F키를 눌렀을 때 동작한다.
+		if (cc.isGrounded && !csBuilding.Instance.IsBuilding && Input.GetKeyDown (KeyCode.F)) {
 			StartCoroutine ("CharLumber");
+		}
 
 	}
 
-	private bool isPlayLumbering(){
-		if (charStats.CurrentEquip().Equals("Empty"))
-			return false;
-
-		// Lumbering 하는 애니메이터 조건 Active, 현재 Lumbering이 실행중이면 실행하지 않음.
-		RaycastHit hit;
-		Debug.DrawRay (transform.position + transform.up / 2f, transform.forward, Color.red);
-		if(Physics.Raycast(transform.position + transform.up / 2f, transform.forward, out hit, 1f)){
-			if (hit.collider.tag.Equals("Tree") && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
-				if (charStats.CurrentEquip().Equals("Axe")) {
-					hit.collider.GetComponent<csTreeController> ().Lumber ();
-					return true;
-				}
-			}else if (hit.collider.tag.Equals("Rock") && !curAnim.GetCurrentAnimatorStateInfo (0).IsName ("Lumbering")) {
-				if (charStats.CurrentEquip().Equals("Pickaxe")) {
-					hit.collider.GetComponent<csRockController> ().Dig ();
-					return true;
-				}
-			}
+	// 시간이 지남에 따라 배고픔이 감소된다.
+	private void DecreaseFat(){
+		if (fatTimer > 10f) {
+			fatTimer = 0f;
+			charStats.ChangeFatigue (-3);
+		} else {
+			fatTimer += Time.deltaTime;
 		}
-		return false;
+	}
+
+	// 앞의 대상을 판단하여 반환한다.
+	private Collider CheckTarget(){
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay (csAlreadyGame.FocusObj.position);
+
+		// 현재 인칭에 따라 체크 범위를 달리 한다.
+		float distance = 3f;
+
+		// Ray를 쏴서 상호작용 가능한 물체를 구분하며, 상호작용한다.
+		if(Physics.Raycast(ray, out hit, distance)){
+			// 상호작용의 이펙트를 발생시킬 위치를 지정한다.
+			// 몬스터의 경우와 그 외의 경우로 나뉨
+			if (hit.collider.CompareTag ("Monster")) {
+				attackEffectT.position = hit.point;
+				attackEffectT.rotation = Quaternion.LookRotation (transform.position);
+			} else {
+				takeEffectT.position = hit.point;
+				takeEffectT.rotation = Quaternion.LookRotation (transform.position);
+			}
+			return hit.collider;
+		}
+		return null;
 	}
 
 	private IEnumerator CharLumber(){
-		// Lumbering 애니메이션 재생
-		curAnim.SetBool ("Lumber", true);
-		charStats.isStop = true;
+		// 처음 앞의 대상이 무슨 오브젝트인지 판단.
+		Collider col = CheckTarget ();
 
-		yield return new WaitForSeconds (0.5f);
+		csObjectInteraction component = null;
+		// 앞에 오브젝트가 있으면, 오브젝트의 csObjectInteraction 인터페이스를 GetComponent함.
+		if (col != null) {
+			component = col.GetComponent (typeof(csObjectInteraction)) as csObjectInteraction;
+		}
+		// 만약 앞의 오브젝트가 상자라면 Interaction 메소드만 호출함.
+		if (col != null && col.tag == "Crate") {
+			if (component != null) {
+				component.Interaction (gameObject);
+			}
 
-		curAnim.SetBool ("Lumber", false);
-		charStats.isStop = false;
+		} 
+		// 그 외의 오브젝트라면 현재 지정된 Animator의 Lumber 애니메이션을 활성화한 후 애니메이션의 타이밍에 맞춰 Interaction 메소드를 호출함.
+		// 만약 아무 오브젝트도 없을 시 애니메이션만 실행
+		else {
+			// 지정된 애니메이션 재생
+			thirdAnim.SetBool ("Lumber", true);
+			charStats.isStop = true;
+
+			// 자연스러운 효과를 위해 대기
+			yield return new WaitForSeconds (0.5f);
+
+			// 지정된 애니메이션 정지
+			thirdAnim.SetBool ("Lumber", false);
+			// 판단된 오브젝트가 지형이 아닌 다른 오브젝트인 경우
+			if (col != null && !(col.CompareTag("Ground"))) {
+				// 해당 오브젝트의 Interaction 메소드를 호출
+				Debug.Log(col.tag);
+				component.Interaction (gameObject);
+				// 몬스터의 경우 attackPS 이펙트 재생
+				if (col.CompareTag ("Monster")) {
+					attackPS.Stop ();
+					attackPS.Play ();
+				}
+				// 그 외의 경우 takePS 이펙트 재생
+				else if(col.CompareTag("Resource")){
+					takePS.Stop ();
+					takePS.Play ();
+				}
+			}
+
+			// 다시 0.5초 대기 후 캐릭터 움직임 제한 해제
+			yield return new WaitForSeconds (0.5f);
+			charStats.isStop = false;
+		}
 	}
 
 	// 사용자의 방향키 입력으로 캐릭터의 움직임을 조작한다.
@@ -88,25 +148,41 @@ public class csCharacterController : MonoBehaviour {
 			// 방향키 입력으로 캐릭터를 움직이며, 설정된 Jump키의 조작으로 캐릭터가 점프유무를 판단한다.
 			jumpLocation = 0f;
 			charDir = (transform.forward * ver + transform.right * hor) * moveSpeed;
-			curAnim.SetBool ("Jump", false);
+			thirdAnim.SetBool ("Jump", false);
 			if (Input.GetButtonDown ("Jump")) {
 				jumpLocation = -jumpSpeed;
-				curAnim.SetBool ("Jump", true);
+				thirdAnim.SetBool ("Jump", true);
 			}
 
-			// 'R'키가 눌러진 상태에서 이동하는 경우 moveSpeed를 변경하여 캐릭터의 속도를 빠르게 한다.
-			if (Input.GetButton("Run")) {
-				if (moveSpeed < 4f)
+			// 'R'키가 눌러진 상태에서 이동하는 경우 달리기를 한다.
+			// moveSpeed를 변경하여 캐릭터의 속도를 빠르게 한다.
+			// 좌우키가 눌려진 상태의 달리기는 속도제한이 더 높다.
+			float maxSpeed = 4f;
+			if (hor != 0f || ver < 0f) {
+				maxSpeed = 2f;
+			}
+			if(!Input.GetButton("Run") || (ver == 0f && hor == 0f)) {
+				if (moveSpeed > 1f && moveSpeed < maxSpeed) {
+					moveSpeed -= 0.1f;
+				} else {
+					moveSpeed = 1f;
+				}
+				if (curMoveSpeed > 0f) {
+					curMoveSpeed -= 1f;
+				}
+				thirdAnim.SetFloat ("Run", curMoveSpeed);
+			}
+			else {
+				// moveSpeed : 캐릭터와 관련된 속도
+				if (moveSpeed < maxSpeed) {
 					moveSpeed += 0.1f;
+				} else {
+					moveSpeed = maxSpeed;
+				}
+				// curMoveSpeed : 애니메이션 전환에 관련된 속도
 				if (curMoveSpeed < 20f)
 					curMoveSpeed += 1f;
-				curAnim.SetFloat ("Run", curMoveSpeed);
-			} else {
-				if (moveSpeed > 1f)
-					moveSpeed -= 0.1f;
-				if (curMoveSpeed > 0f)
-					curMoveSpeed -= 1f;
-				curAnim.SetFloat ("Run", curMoveSpeed);
+				thirdAnim.SetFloat ("Run", curMoveSpeed);
 			}
 		}
 
@@ -119,32 +195,21 @@ public class csCharacterController : MonoBehaviour {
 
 	private void WalkDirAnim(float hor, float ver){
 		// 현재 입력된 방향키에 따라 캐릭터의 방향을 전환한다.
+		thirdAnim.SetFloat ("Walk", ver);
+		thirdAnim.SetFloat ("SideWalk", hor);
 		if (ver == 0 && hor == 0) {
-			curAnim.SetFloat ("Walk", 0);
+			thirdAnim.SetBool ("Move", false);
 			return;
 		}
-		curAnim.SetFloat ("Walk", 1);
+		thirdAnim.SetBool ("Move", true);
 	}
 
-	public float GetSensetive{
-		get{
-			return mouseSensitive;
-		}
-	}
-
-	// 현재 진행할 애니메이션이 3인칭인지 1인칭인지 정함
-	public void setFocus(bool isThird){
-		if (isThird) {
-			curAnim = thirdAnim;
-		} else {
-			curAnim = firstAnim;
-		}
-	}
-
+	// 현재 캐릭터의 손에 들 아이템을 now 인덱스의 아이템으로 변경
+	// now가 -1인 경우 빈 손
 	public void chgWeapon(int prev, int now){
-		if(prev != -1)
-			weapons [prev].SetActive (false);
-		if(now != -1)
-			weapons [now].SetActive (true);
+		if (prev != -1)
+			thirdWeapons [prev].SetActive (false);
+		if (now != -1)
+			thirdWeapons [now].SetActive (true);
 	}
 }

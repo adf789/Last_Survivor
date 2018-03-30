@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 캠프파이어 오브젝트 클래스
 public class csCampfire : csConstruction {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+	public override void Interaction (GameObject obj)
+	{
 		
 	}
 
-	public override void Action ()
+	// 캠프파이어가 건설될 때 충돌체를 활성화하고 하위 오브젝트의 이펙트를 활성화한다.
+	public override void Establish ()
 	{
-		throw new System.NotImplementedException ();
+		transform.GetChild(0).GetComponent <MeshCollider> ().enabled = true;
+		SetMaterials ();
+		transform.GetChild (0).Find ("FX_Fire").gameObject.SetActive (true);
 	}
 }
