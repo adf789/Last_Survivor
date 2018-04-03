@@ -17,6 +17,7 @@ public class csCharacterController : MonoBehaviour {
 	private Animator thirdAnim;
 	private Vector3 charDir;
 	private float gravity, moveSpeed, jumpSpeed, jumpLocation, curMoveSpeed, fatTimer;
+	private Collider target;
 
 	// 오브젝트 및 변수 초기화
 	void Awake() {
@@ -45,12 +46,21 @@ public class csCharacterController : MonoBehaviour {
 		if (charStats.isStop)
 			return;
 		DecreaseFat ();
-		CharMove ();
 		// 앞의 오브젝트와 상호작용하기 위해선 건설상태가 아니고 점프상태가 아닐 때 F키를 눌렀을 때 동작한다.
 		if (cc.isGrounded && !csBuilding.Instance.IsBuilding && Input.GetKeyDown (KeyCode.F)) {
-			StartCoroutine ("CharLumber");
+			CharStartInteration();
 		}
+		CharMove ();
 
+	}
+
+	void FixedUpdate(){
+		if (charStats.isStop)
+			return;
+		// 캐릭터의 실제 이동은 FixedUpdate에서 이뤄진다.
+		jumpLocation += gravity * Time.deltaTime;
+		charDir += Vector3.down * jumpLocation;
+		cc.Move (charDir * Time.deltaTime);
 	}
 
 	// 시간이 지남에 따라 배고픔이 감소된다.
@@ -69,7 +79,7 @@ public class csCharacterController : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay (csAlreadyGame.FocusObj.position);
 
 		// 현재 인칭에 따라 체크 범위를 달리 한다.
-		float distance = 3f;
+		float distance = 2.5f;
 
 		// Ray를 쏴서 상호작용 가능한 물체를 구분하며, 상호작용한다.
 		if(Physics.Raycast(ray, out hit, distance)){
@@ -87,54 +97,56 @@ public class csCharacterController : MonoBehaviour {
 		return null;
 	}
 
-	private IEnumerator CharLumber(){
+	private void CharStartInteration(){
 		// 처음 앞의 대상이 무슨 오브젝트인지 판단.
-		Collider col = CheckTarget ();
+		target = CheckTarget ();
 
 		csObjectInteraction component = null;
 		// 앞에 오브젝트가 있으면, 오브젝트의 csObjectInteraction 인터페이스를 GetComponent함.
-		if (col != null) {
-			component = col.GetComponent (typeof(csObjectInteraction)) as csObjectInteraction;
+		if (target != null) {
+			component = target.GetComponent (typeof(csObjectInteraction)) as csObjectInteraction;
 		}
 		// 만약 앞의 오브젝트가 상자라면 Interaction 메소드만 호출함.
-		if (col != null && col.tag == "Crate") {
+		if (target != null && target.CompareTag("Crate")) {
 			if (component != null) {
 				component.Interaction (gameObject);
 			}
 
 		} 
-		// 그 외의 오브젝트라면 현재 지정된 Animator의 Lumber 애니메이션을 활성화한 후 애니메이션의 타이밍에 맞춰 Interaction 메소드를 호출함.
-		// 만약 아무 오브젝트도 없을 시 애니메이션만 실행
+		// 그 외의 오브젝트라면 현재 지정된 Animator의 Lumbering 애니메이션을 활성화한 후 코루틴 CancelLumber를 호출함.
+ 		// 만약 아무 오브젝트도 없을 시 애니메이션만 실행
 		else {
-			// 지정된 애니메이션 재생
-			thirdAnim.SetBool ("Lumber", true);
+			thirdAnim.CrossFade("Lumbering", 0.3f);
 			charStats.isStop = true;
+			StartCoroutine ("CancelLumber");
+		}
+	}
 
-			// 자연스러운 효과를 위해 대기
-			yield return new WaitForSeconds (0.5f);
+	// 일정시간 후 Lumbering 애니메이션 조건을 비활성화 후 0.5초 후에 캐릭터의 멈춤상태도 비활성화한다.
+	private IEnumerator CancelLumber(){
+		yield return new WaitForSeconds (0.5f);
+		thirdAnim.SetBool("Lumber", false);
+		yield return new WaitForSeconds (0.5f);
+		charStats.isStop = false;
+	}
 
-			// 지정된 애니메이션 정지
-			thirdAnim.SetBool ("Lumber", false);
-			// 판단된 오브젝트가 지형이 아닌 다른 오브젝트인 경우
-			if (col != null && !(col.CompareTag("Ground"))) {
-				// 해당 오브젝트의 Interaction 메소드를 호출
-				Debug.Log(col.tag);
-				component.Interaction (gameObject);
-				// 몬스터의 경우 attackPS 이펙트 재생
-				if (col.CompareTag ("Monster")) {
-					attackPS.Stop ();
-					attackPS.Play ();
-				}
-				// 그 외의 경우 takePS 이펙트 재생
-				else if(col.CompareTag("Resource")){
-					takePS.Stop ();
-					takePS.Play ();
-				}
+	// Lumbering 애니메이션 중 이벤트로 들어갈 메소드로 상호작용 타겟이 지형이 아니라면 상황에 맞는 이펙트와 메소드를 호출한다.
+	private void ActInteration(){
+		// 판단된 오브젝트가 지형이 아닌 다른 오브젝트인 경우
+		if (target != null && !(target.CompareTag("Ground"))) {
+			csObjectInteraction component = target.GetComponent (typeof(csObjectInteraction)) as csObjectInteraction;
+			// 해당 오브젝트의 Interaction 메소드를 호출
+			component.Interaction (gameObject);
+			// 몬스터의 경우 attackPS 이펙트 재생
+			if (target.CompareTag ("Monster")) {
+				attackPS.Stop ();
+				attackPS.Play ();
 			}
-
-			// 다시 0.5초 대기 후 캐릭터 움직임 제한 해제
-			yield return new WaitForSeconds (0.5f);
-			charStats.isStop = false;
+			// 그 외의 경우 takePS 이펙트 재생
+			else if(target.CompareTag("Resource")){
+				takePS.Stop ();
+				takePS.Play ();
+			}
 		}
 	}
 
@@ -186,11 +198,8 @@ public class csCharacterController : MonoBehaviour {
 			}
 		}
 
-		// 현재 방향키가 눌러진 방향과 중력을 더한 방향으로 캐릭터를 이동시킨다.
-		jumpLocation += gravity * Time.deltaTime;
-		charDir += Vector3.down * jumpLocation;
+		// 현재 방향키가 눌러진 방향으로 캐릭터의 애니메이션을 전환한다.
 		WalkDirAnim (hor, ver);
-		cc.Move (charDir * Time.deltaTime);
 	}
 
 	private void WalkDirAnim(float hor, float ver){
@@ -201,7 +210,10 @@ public class csCharacterController : MonoBehaviour {
 			thirdAnim.SetBool ("Move", false);
 			return;
 		}
-		thirdAnim.SetBool ("Move", true);
+		if (!thirdAnim.GetBool ("Move")) {
+			thirdAnim.CrossFade ("Moving", 0.3f);
+			thirdAnim.SetBool ("Move", true);
+		}
 	}
 
 	// 현재 캐릭터의 손에 들 아이템을 now 인덱스의 아이템으로 변경

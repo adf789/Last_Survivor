@@ -24,6 +24,8 @@ public class csUIController : MonoBehaviour {
 
 	// 자주 사용될 오브젝트들을 미리 초기화한다.
 	void Start () {
+		Cursor.SetCursor (Resources.Load<Texture2D> ("Cursor"), new Vector2 (0, 0), CursorMode.Auto);
+		Cursor.visible = false;
 		hpBarS = csAlreadyGame.HpObj.GetComponent<Slider> ();
 		fatigueBarS = csAlreadyGame.FatigueBarObj.GetComponent<Slider> ();
 		scrollGuide = csAlreadyGame.QuickBarObj.transform.Find ("Guide").GetComponent<RectTransform>();
@@ -125,6 +127,7 @@ public class csUIController : MonoBehaviour {
 	// 조합창 GUI를 열고 닫는다.
 	private void OpenWorktable(){
 		isShowWorktable = !isShowWorktable;
+		Cursor.visible = isShowWorktable;
 		csAlreadyGame.WorktableObj.SetActive (isShowWorktable);
 		csCharacterStatus.Instance.isStop = isShowWorktable;
 		csCameraController.isStop = isShowWorktable;
@@ -133,6 +136,7 @@ public class csUIController : MonoBehaviour {
 	// 인벤토리 GUI를 열고 닫는다.
 	private void OpenInventory(){
 		isShowInventory = !isShowInventory;
+		Cursor.visible = isShowInventory;
 		csAlreadyGame.InventoryObj.SetActive (isShowInventory);
 		csCharacterStatus.Instance.isStop = isShowInventory;
 		csCameraController.isStop = isShowInventory;

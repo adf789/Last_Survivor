@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class csAttackState : csFSMstate<csMonster> {
 	private static csAttackState _instance = null;
-	private float attackTimer = 0f;
 	private Color originColor;
 
 	// 싱글톤을 위해 생성자는 private로 지정한다.

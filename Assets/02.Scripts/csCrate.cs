@@ -45,6 +45,7 @@ public class csCrate : MonoBehaviour, csObjectInteraction {
 
 	// 상자 인벤토리 오브젝트를 비활성화하고 카메라의 정지상태를 비활성화한다.
 	private void CloseCrate(){
+		Cursor.visible = false;
 		crateInv.gameObject.SetActive (false);
 		csCameraController.isStop = false;
 		isOpened = false;
@@ -64,6 +65,7 @@ public class csCrate : MonoBehaviour, csObjectInteraction {
 	// 플레이어와의 상호작용을 정의한다.
 	public void Interaction(GameObject obj){
 		if (obj.tag == "Player") {
+			Cursor.visible = true;
 			// 상자인벤토리를 활성화
 			crateInv.gameObject.SetActive (true);
 			crateInv.transform.position = Camera.main.WorldToScreenPoint (transform.position + Vector3.up * 0.5f);

@@ -24,14 +24,14 @@ GameObject:
   - component: {fileID: 65131230994596082}
   - component: {fileID: 114912206280381754}
   - component: {fileID: 95647570928399218}
-  - component: {fileID: 54087976049234346}
   - component: {fileID: 82961932729432108}
+  - component: {fileID: 54151585375011698}
   m_Layer: 0
   m_Name: Olive_lowp3
   m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 6
   m_IsActive: 1
 --- !u!4 &4503370917018796
 Transform:
@@ -91,7 +91,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424466319369960}
   m_Mesh: {fileID: 4300000, guid: 4935bc630833479488a150cc67fefc07, type: 3}
---- !u!54 &54087976049234346
+--- !u!54 &54151585375011698
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

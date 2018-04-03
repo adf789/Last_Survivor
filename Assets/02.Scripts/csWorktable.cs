@@ -151,6 +151,10 @@ public class csWorktable : MonoBehaviour{
 
 	// 조합 아이템 리스트 중에서 현재 조합이 가능한 것만 제외한 후 나머지는 제거한다.
 	public void RemoveAtPossibilityList(){
+		if (!isInit) {
+			Init ();
+			isInit = true;
+		}
 		for (int i = 0; i < possibleCombList.Count;) {
 			csItem combItem = possibleCombList[i++];
 			if (!csCombineInfo.Instance.isPossibility (combItem) && possibleCombList.Contains (combItem)) {

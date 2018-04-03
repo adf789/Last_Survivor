@@ -21,9 +21,11 @@ public class csTent : csConstruction {
 		yield return new WaitForSeconds(basicTime);
 
 		// 대기한 후 게임시간과 플레이어의 상태를 이전 상태로 되돌림
-		csCharacterStatus.Instance.isStop = false;
+		csCharacterStatus cs = csCharacterStatus.Instance;
+		cs.curHp = cs.maxHp;
+		cs.isStop = false;
 		csCameraController.isStop = false;
-		csCharacterStatus.Instance.isSleep = false;
+		cs.isSleep = false;
 		Time.timeScale = 1f;
 		
 	}

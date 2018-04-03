@@ -127,8 +127,8 @@ ModelImporter:
     - serializedVersion: 16
       name: right
       takeName: 113_18
-      firstFrame: 42
-      lastFrame: 208
+      firstFrame: 243
+      lastFrame: 278
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -155,8 +155,8 @@ ModelImporter:
     - serializedVersion: 16
       name: left
       takeName: 113_18
-      firstFrame: 210
-      lastFrame: 413
+      firstFrame: 109
+      lastFrame: 142
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

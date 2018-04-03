@@ -8,21 +8,15 @@ public class csTreeController : MonoBehaviour, csObjectInteraction {
 	public float curHp;
 	private Animator anim;
 	private BoxCollider col;
-	private Rigidbody rigid;
 	private AudioSource audioSource;
 
 	void Start () {
 		curHp = hp;
 		anim = gameObject.GetComponent<Animator> ();
 		col = gameObject.GetComponent<BoxCollider> ();
-		rigid = gameObject.GetComponent<Rigidbody> ();
 		audioSource = gameObject.GetComponent<AudioSource> ();
 	}
 	
-	public void Lumber(){
-		StartCoroutine ("actionLumber");
-	}
-
 	// 나무 오브젝트를 비활성화한 후 특정 아이템을 습득
 	private void CutTree(){
 		col.enabled = false;
@@ -38,31 +32,21 @@ public class csTreeController : MonoBehaviour, csObjectInteraction {
 		gameObject.SetActive (false);
 	}
 
-	// 일정 시간 후 Rigidbody의 물리 충돌을 비활성화한다.
-	IEnumerator actionLumber(){
-		yield return new WaitForSeconds (1f);
-		rigid.isKinematic = true;
-
-	}
-
-	// 해당 충돌체에 감지된 오브젝트의 태그가 Axe인 경우 행동
-	void OnCollisionEnter(Collision col){
-		if (col.collider.tag == "Axe") {
+	// 해당 오브젝트에 상호작용의 발생된 경우 호출된다.
+	public void Interaction(GameObject gameObject){
+		// 현재 캐릭터가 들고있는 도구가 Axe인 경우
+		if (csCharacterStatus.Instance.CurrentEquip ().Equals ("Axe")) {
+			// 해당 오브젝트의 내구도를 1깎는다.
 			curHp -= 1f;
+			// 상호작용에 해당하는 소리 재생
 			audioSource.Play ();
 			// 해당 오브젝트의 내구도가 0이하가 됐을 경우
 			if (curHp <= 0f) {
 				CutTree ();
 			}
-			// rigidbody의 물리적 충돌 비활성화
-			rigid.isKinematic = true;
+		} else {
+			csMessageBox.Show ("알맞은 도구가 아닙니다.");
 		}
-	}
-
-	// 해당 오브젝트에 상호작용의 발생된 경우 rigidbody 물리적 충돌 활성화
-	// 게임의 성능을 위해 필요한 경우에만 물리적 충돌 허용
-	public void Interaction(GameObject gameObject){
-		rigid.isKinematic = false;
 	}
 
 	public void Respawn(Vector3 position){

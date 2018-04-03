@@ -5,7 +5,6 @@ using UnityEngine;
 // 카메라를 제어하기 위한 클래스이다.
 public class csCameraController : MonoBehaviour {
 	private Transform thirdPos;
-	private csCharacterController charController;
 	private Transform charTransform;
 	private Transform transform;
 	private float mouseSensitive;
@@ -19,7 +18,6 @@ public class csCameraController : MonoBehaviour {
 	void Start () {
 		isStop = false;
 		thirdPos = GameObject.Find ("ThirdCameraPos").transform;
-		charController = FindObjectOfType<csCharacterController> ();
 		charTransform = FindObjectOfType<csCharacterController> ().transform;
 		mouseSensitive = 80f;
 		wallPos = new Vector3 ();

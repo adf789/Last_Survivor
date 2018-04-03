@@ -126,8 +126,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk_Back
       takeName: 113_01
-      firstFrame: 30
-      lastFrame: 97
+      firstFrame: 48
+      lastFrame: 82
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

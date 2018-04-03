@@ -6,21 +6,13 @@ using UnityEngine;
 public class csRockController : MonoBehaviour, csObjectInteraction {
 	public float hp = 1000f;
 	public float curHp;
-	private Animator anim;
 	private SphereCollider col;
-	private Rigidbody rigid;
 	private AudioSource audioSource;
 
 	void Start () {
 		curHp = hp;
-		anim = gameObject.GetComponent<Animator> ();
 		col = gameObject.GetComponent<SphereCollider> ();
-		rigid = gameObject.GetComponent<Rigidbody> ();
 		audioSource = gameObject.GetComponent<AudioSource> ();
-	}
-
-	public void Dig(){
-		StartCoroutine ("actionDig");
 	}
 
 	// 바위 오브젝트를 비활성화
@@ -29,19 +21,15 @@ public class csRockController : MonoBehaviour, csObjectInteraction {
 		gameObject.SetActive (false);
 	}
 
-	// 도끼가 부딪힐 타이밍에 Rigidbody를 활성화한다.
-	IEnumerator actionDig(){
-		yield return new WaitForSeconds (0.5f);
-		rigid.isKinematic = false;
-
-	}
-
-	// 해당 충돌체에 감지된 오브젝트의 태그가 Pickaxe인 경우 행동
-	void OnCollisionEnter(Collision col){
-		if (col.collider.tag == "Pickaxe") {
+	// 해당 오브젝트에 상호작용의 발생된 경우 호출된다.
+	public void Interaction(GameObject gameObject){
+		// 현재 캐릭터가 들고있는 도구가 Pickaxe인 경우
+		if (csCharacterStatus.Instance.CurrentEquip ().Equals ("Pickaxe")) {
+			// 해당 오브젝트의 내구도를 1깎는다.
 			curHp -= 1f;
+			// 상호작용에 해당하는 소리 재생
 			audioSource.Play ();
-			// 물리적 충돌이 감지될 때마다 플레이어의 인벤토리로 지정된 아이템이 추가됨
+			// 플레이어의 인벤토리로 지정된 아이템이 추가됨
 			csInventory inv = csInventory.Instance;
 			csItem item = csItemList.Instance.GetItem (1);
 			inv.SetToInventory (item, 1);
@@ -49,15 +37,9 @@ public class csRockController : MonoBehaviour, csObjectInteraction {
 			if (curHp <= 0f) {
 				BreakRock ();
 			}
-			// rigidbody의 물리적 충돌 비활성화
-			rigid.isKinematic = true;
+		} else {
+			csMessageBox.Show ("알맞은 도구가 아닙니다.");
 		}
-	}
-
-	// 해당 오브젝트에 상호작용의 발생된 경우 rigidbody 물리적 충돌 활성화
-	// 게임의 성능을 위해 필요한 경우에만 물리적 충돌 허용
-	public void Interaction(GameObject gameObject){
-		rigid.isKinematic = false;
 	}
 
 	public void Respawn(Vector3 position){

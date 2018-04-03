@@ -23,15 +23,15 @@ GameObject:
   - component: {fileID: 23355107680409692}
   - component: {fileID: 135073933740924890}
   - component: {fileID: 114484659562121460}
-  - component: {fileID: 54265258687774820}
   - component: {fileID: 82401302972405046}
   - component: {fileID: 95458445413351788}
+  - component: {fileID: 54764923440590318}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4984088494733608
 Transform:
@@ -87,7 +87,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185572968352036}
   m_Mesh: {fileID: 4300000, guid: 8120340fb7b901d4d822f5966b77d724, type: 3}
---- !u!54 &54265258687774820
+--- !u!54 &54764923440590318
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

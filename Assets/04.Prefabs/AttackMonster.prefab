@@ -36,7 +36,6 @@ GameObject:
   - component: {fileID: 4378261658625358}
   - component: {fileID: 198433163001115066}
   - component: {fileID: 199170510407554664}
-  - component: {fileID: 114304016379849442}
   m_Layer: 0
   m_Name: AttackMonster
   m_TagString: Untagged
@@ -71,17 +70,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114304016379849442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1307081004329440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d040b3f4e9d42e41b761feb9a2cb27d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198433163001115066
 ParticleSystem:
   m_ObjectHideFlags: 1

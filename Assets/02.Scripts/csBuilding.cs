@@ -10,7 +10,7 @@ public class csBuilding : MonoBehaviour{
 	private Transform focusObj;
 	private Renderer buildingRenderer;
 	private BoxCollider col;
-	private bool isBuilding = false, isObjShow = false, isPossible = true;
+	private bool isBuilding = false, isPossible = true;
 	private Camera mainCam;
 
 	void Update(){
@@ -36,12 +36,13 @@ public class csBuilding : MonoBehaviour{
 
 			// 해당 위치에 건설이 가능한 경우에 F버튼을 누를 경우
 			if (Input.GetKeyDown (KeyCode.F) && isPossible) {
+				Debug.Log ("Test");
 				// 건설 상태를 비활성화한다.
 				isBuilding = false;
 				// 건설틀의 자식 오브젝트를 Unparent 한다.
 				buildingObjBucket.DetachChildren ();
 				// 건설틀의 트리거를 비활성화한다.
-				buildingObjBucket.GetComponent<BoxCollider> ().enabled = false;
+				col.enabled = false;
 				// 실제 건설할 오브젝트의 csConstruction 클래스의 Establish 메소드를 호출한다.
 				buildingObj.GetComponent<csConstruction> ().Establish ();
 				// 건설이 성공적으로 됐다면 선택되었던 아이템을 소모한다.
@@ -117,6 +118,7 @@ public class csBuilding : MonoBehaviour{
 			// 건설 판단 영역의 크기를 건설할 오브젝트의 Renderer 크기로 초기화한다.
 			buildingRenderer = buildingObj.GetChild(0).GetComponent<Renderer> ();
 			col.size = buildingRenderer.bounds.size;
+			col.enabled = true;
 		}
 	}
 
